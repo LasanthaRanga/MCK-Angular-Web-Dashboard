@@ -1,0 +1,86 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button> -->
+  <span>MCK Web Portal</span>
+  <span class="flex-spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="menuButton">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu" class="manuitem">
+  <!-- <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button> -->
+  <!-- <button mat-menu-item [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!isLogin">
+    <mat-icon>lock_open</mat-icon>
+    <span>Login</span>
+  </button> -->
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+<div class="container">
+<br>
+  <mat-tab-group>
+    <mat-tab label="Assessment Data">
+      <br>
+      <br>
+
+
+      <mat-card class="example-card" class="col-md-8 offset-md-2">
+        <mat-card-header>
+          <mat-card-title>Map Your Assessment</mat-card-title>
+          <mat-card-subtitle>You Have to map your assessment property with your online account befor online payment
+          </mat-card-subtitle>
+        </mat-card-header>
+        <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+        <mat-card-content>
+       
+
+          <form #fmap="ngForm" (ngSubmit)="map(fmap)">
+            <mat-form-field class="col-md-12">
+              <input ngModel matInput type="text" id="owner" name="owner" required placeholder="Owner Name" />
+            </mat-form-field>
+            <br>
+            <mat-form-field class="col-md-12">
+              <input ngModel matInput type="text" id="kform" name="kform" placeholder="Assessment ID " />
+            </mat-form-field>
+            <br>
+            <mat-form-field class="col-md-12">
+              <input ngModel matInput type="text" id="recit" name="recit" placeholder="Last Paid Recipt Number" />
+            </mat-form-field>
+            <br>
+            <mat-form-field class="col-md-12">
+              <textarea ngModel matInput type="text" id="des" name="des" placeholder="Description" ></textarea>
+            </mat-form-field>
+            <br>
+            <mat-card-actions>
+              <button mat-raised-button type="submit" color="primary"  type="submit">Request</button>
+            </mat-card-actions>
+          </form>
+
+
+
+        </mat-card-content>
+
+      </mat-card>
+      <br>
+      <br>
+
+
+    </mat-tab>
+    <mat-tab label="Shop Data"> Content 2 </mat-tab>
+    <mat-tab label="Trade Licens Data"> Content 3 </mat-tab>
+  </mat-tab-group>
+
+
+
+</div>

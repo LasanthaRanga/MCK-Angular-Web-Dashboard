@@ -1,0 +1,115 @@
+<!-- Content here -->
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="mat-elevation-z8">
+      <br>
+      <div style="padding: 10px;">
+        <mat-form-field>
+          <input matInput (keyup)="searchUser($event.target.value)" type="text" [(ngModel)]="userName"
+            placeholder="Search" />
+        </mat-form-field>
+      </div>
+      <mat-table matSort [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="idApproval_cat">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> # </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.idApproval_cat}} </mat-cell>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="approval_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.approval_name}} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectedRow(row)"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+
+  <div class="col-md-4">
+    <div class="mat-elevation-z8">
+      <mat-table matSort [dataSource]="dataSourcePrivilage">
+        <!-- Name Column -->
+        <ng-container matColumnDef="caption">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Privilage </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.caption}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="image">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> ICON </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon color="primary">{{element.image}}</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Add Privilage</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" value="{{element.id}}"
+              (click)="addPrivilage(element.id, element.caption)">
+              Add Privilage
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsPrivilage"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsPrivilage;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="mat-elevation-z8">
+      <div style="padding: 10px;">
+        <h3>{{approval_name}}</h3>
+      </div>
+
+
+      <mat-table matSort [dataSource]="dataSourcePrivilageAdded">
+        <!-- Name Column -->
+        <ng-container matColumnDef="caption">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Privilage </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.caption}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="image">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> ICON </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <mat-icon color="primary">{{element.image}}</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Add Privilage</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button color="accent" value="{{element.id}}"
+              (click)="removePrivilage(element.id, element.caption)">
+              Remove Privilage
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsAdded"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsPrivilage;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>

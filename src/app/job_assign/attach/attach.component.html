@@ -1,0 +1,52 @@
+<div class="container">
+  <!-- Content here -->
+  <div class="row">
+    <mat-card class="col-md-8 offset-md-2">
+      <mat-card-title>Add Descriptions, Pictures</mat-card-title>
+      <mat-card-subtitle>Add comments, Pick file and click upload</mat-card-subtitle>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <br>
+        <mat-form-field class="col-md-12">
+          <textarea matInput type="text" placeholder="Comment Aout This File" [(ngModel)]="comment" rows="4"></textarea>
+        </mat-form-field>
+
+
+        <div class="col-md-12">
+          <input style="display: none;" type="file" (change)="onFileSelected($event)" #fileInput />
+          <button mat-raised-button (click)="fileInput.click()">Pick File</button>
+          <br>
+
+          <img [src]="url" height="200" *ngIf="url">
+          <br>
+
+          <button mat-raised-button color="primary" (click)=" onUpload()"> Upload Image And Add Comments </button>
+
+        </div>
+
+
+        <div class="col-md-4 offset-md-4" *ngIf="isLoading">
+          <mat-progress-spinner ng-show="isLoading" value='{{upProgrus}}'></mat-progress-spinner>
+        </div>
+
+
+
+        <div *ngFor="let att of attach">
+          <p *ngIf="!att.file && att.img!=null" ></p>
+            <img  [src]="att.img" class="img-thumbnail">
+        </div>
+
+
+
+        <!-- <img mat-card-image src="" alt="Photo of a Shiba Inu"> -->
+        <!-- <img [src]="mySrc"> -->
+        <picture></picture>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <mat-divider></mat-divider>
+        <br><br>
+        <button mat-raised-button color="primary" (click)="sendToSubject()"> Send To </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

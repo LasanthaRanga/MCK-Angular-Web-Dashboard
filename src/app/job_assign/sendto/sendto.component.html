@@ -1,0 +1,134 @@
+<div class="container">
+  <!-- Content here -->
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card>
+        <mat-card-title>Job Details | වැඩ විස්තරය</mat-card-title>
+        <mat-card-subtitle>All Details</mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <div>
+            <br>
+            <h6>
+              <strong>Job : </strong>{{job.job_name}}
+            </h6>
+            <h6>
+              <strong>Job Type :</strong> {{job.jobtype_name}}
+            </h6>
+            <p>
+              <strong>Description : විස්තරය </strong>
+              {{job.job_description}}
+            </p>
+            <p>
+              <strong>Instruction :</strong>
+              {{job.job_instruction}}
+            </p>
+            <h6>
+              <strong>Dedline :</strong>
+              {{job.job_dedline | date:'yyyy / MM / dd'}}
+            </h6>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="container">
+              <!--
+              <div *ngFor="let img of imageList">
+              </div>
+              <div>
+                <button mat-raised-button (click)="download()">
+                  <mat-icon color="primary">cloud_download</mat-icon> Load images
+                </button>
+              </div>
+              <div *ngIf="loadImage">
+                <div *ngFor="let attach of images">
+                  <img [src]="attach" alt="..." class="img-thumbnail">
+                </div>
+              </div>-->
+
+              <mat-card-actions>
+                <button mat-raised-button color="accent" (click)="sendDipHead()" class="float-right"> Work is Done Send
+                  to Department Head </button>
+              </mat-card-actions>
+
+            </div>
+          </div>
+        </mat-card-content>
+
+      </mat-card>
+    </div>
+
+
+  </div>
+
+  <div class="mat-elevation-z8">
+    <div class="col-md-12">
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field>
+            <mat-label>Send To Subject</mat-label>
+            <mat-select [(ngModel)]="subid" (selectionChange)="loadUserBySubject($event.value)">
+              <mat-option value="0">All Subjects</mat-option>
+              <div *ngFor="let item of subjectArray">
+                <mat-option value="{{item.idSubject}}">{{item.subject_name}}</mat-option>
+              </div>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <mat-form-field>
+            <input matInput (keyup)="searchUser($event.target.value)" type="text" placeholder="Search User" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <button mat-raised-button (click)="sendToSubject()">
+            Send To Subject
+          </button>
+        </div>
+
+      </div>
+      <mat-table matSort [dataSource]="dataSource">
+        <!-- Position Column -->
+        <!-- <ng-container matColumnDef="idUser">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> # </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.idUser}} </mat-cell>
+      </ng-container> -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="user_full_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Name නම </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.user_full_name}} </mat-cell>
+        </ng-container>
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="user_nic">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> NIC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.user_nic}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="subject_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Subject </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.subject_name}} </mat-cell>
+        </ng-container>
+
+        <!-- Position Column -->
+        <!--    <ng-container matColumnDef="idUser">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Send </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button value="{{element.idUser}}" (click)="sendTouser(element)">
+              Send
+            </button></mat-cell>
+        </ng-container>
+      -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[6,12,24]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>

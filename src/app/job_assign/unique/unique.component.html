@@ -1,0 +1,50 @@
+<div class="col-md-12">
+
+  <div class="mat-elevation-z8">
+
+    <div class="col-md-12">
+      <mat-form-field class="col-md-6">
+        <input matInput (keyup)="applayFilter($event.target.value)" type="text" [(ngModel)]="inputval"
+          placeholder="Search Here" />
+      </mat-form-field>
+    </div>
+
+    <mat-table matSort [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="idUnique">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.idUnique}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="application_name">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> Application Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.application_name}} </mat-cell>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="cus_name">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cus_name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="cus_nic">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> NIC </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.cus_nic}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="start_at">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> Start At </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.start_at | date:'yyyy / MM / dd' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell mat-sort-header *matHeaderCellDef> More Info </mat-header-cell>
+        <mat-cell *matCellDef="let element"><button mat-button (click)="clickOnOne(element)">More</button> </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[3,6,9]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

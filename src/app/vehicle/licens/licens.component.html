@@ -1,0 +1,139 @@
+<div class="container">
+    <div class="col-md-12">
+
+
+        <mat-card>
+            <mat-card-title>
+                Annual Licences</mat-card-title>
+            <mat-card-subtitle>Vehicle : {{number}}</mat-card-subtitle>
+            <hr>
+            <mat-card-content>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Type Oj License</mat-label>
+                    <mat-select required [(ngModel)]="selectedType">
+                        <mat-option *ngFor="let i of types" [value]="i.idLicensType">{{i.licensType}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Licensing Authority </mat-label>
+                    <mat-select required [(ngModel)]="selectedAutho">
+                        <mat-option *ngFor="let i of authorities" [value]="i.idInsurenceCompany">{{i.InsurenceCompany_name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="No Of License" [(ngModel)]="no" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Form</mat-label>
+                    <input required matInput [matDatepicker]="fromd" [(ngModel)]="from">
+                    <mat-datepicker-toggle matSuffix [for]="fromd"></mat-datepicker-toggle>
+                    <mat-datepicker #fromd></mat-datepicker>
+                </mat-form-field>
+
+                
+                <mat-form-field class="col-md-4">
+                    <mat-label>To</mat-label>
+                    <input required matInput [matDatepicker]="tod" [(ngModel)]="to">
+                    <mat-datepicker-toggle matSuffix [for]="tod"></mat-datepicker-toggle>
+                    <mat-datepicker #tod></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Amount Rs." [(ngModel)]="amount" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Issue Date</mat-label>
+                    <input required matInput [matDatepicker]="dayd" [(ngModel)]="day">
+                    <mat-datepicker-toggle matSuffix [for]="dayd"></mat-datepicker-toggle>
+                    <mat-datepicker #dayd></mat-datepicker>
+                </mat-form-field>
+
+
+
+
+                <mat-form-field class="col-md-12" *ngIf="idLicense && status ===1">
+                    <textarea matInput type="text" placeholder="Comment For Deactive" [(ngModel)]="deactiveComment"
+                        (ngModelChange)="anable()"></textarea>
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button *ngIf="!idLicense" class="block" mat-raised-button color="primary"
+                        (click)="save()">Save</button>
+
+                    <button *ngIf="idLicense && status ===1 && !anableDeactive " class="block" mat-raised-button
+                        color="warn" disabled (click)="deactive()">Deactive</button>
+
+                    <button *ngIf="idLicense && status ===1 && anableDeactive" class="block" mat-raised-button
+                        color="warn" (click)="deactive()">Deactive</button>
+
+                    <button *ngIf="idLicense" class="block" mat-raised-button (click)="clearItem()">Clear</button>
+
+                </mat-card-actions>
+
+            </mat-card-content>
+        </mat-card>
+
+
+
+    </div>
+    <br>
+    <div class="col-md-12">
+
+        <div class="mat-elevation-z8">
+            <!-- <br> -->
+
+            <div class="col-md-12">
+                <mat-slide-toggle color="primary" [(ngModel)]="active" (ngModelChange)="filterDeactive()"> Filter
+                    Deactive</mat-slide-toggle>
+                <mat-form-field class="col-md-6">
+                    <input matInput (keyup)="applayFilter($event.target.value)" type="text" [(ngModel)]="inputval"
+                        placeholder="Search Here" />
+                </mat-form-field>
+            </div>
+
+            <mat-table matSort [dataSource]="dataSource">
+                <!-- Position Column -->
+
+                <ng-container matColumnDef="licensType">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Type</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.licensType}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="from">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>From</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.from | date:'yyyy-MM-dd'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="to">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>To</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.to | date:'yyyy-MM-dd'}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="number">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Number</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="date">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Date</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date | date:'yyyy-MM-dd'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="idLicense">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Select</mat-header-cell>
+                    <mat-cell *matCellDef="let element"><button mat-raised-button
+                            (click)="select(element)">Select</button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </div>
+</div>

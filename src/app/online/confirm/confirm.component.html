@@ -1,0 +1,23 @@
+<div class="container">
+  <!-- Content here -->
+  <br><br>
+  <div class="row" style="margin-top:10%">
+    <div class="col-md-6 offset-md-3">
+      <mat-card>
+        <mat-card-title>Verification</mat-card-title>
+        <mat-card-subtitle>Check your email and sms for verification code</mat-card-subtitle>
+        <mat-card-content class="example-container">
+          <form>
+            <mat-form-field class="col-md-12">
+              <input matInput type="text" id="code" [formControl]="code" placeholder="Verification Code " />
+              <mat-error *ngIf="code.invalid">{{getErrorMessageCode()}}</mat-error>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="verfy()" type="submit">Verify</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

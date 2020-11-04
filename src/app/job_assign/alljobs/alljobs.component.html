@@ -1,0 +1,109 @@
+<div class="container">
+
+  <div class="col-md-12">
+    <div class="mat-elevation-z8">
+      <mat-table matSort [dataSource]="dataSource">
+        <!-- Position Column -->
+        <!-- <ng-container matColumnDef="idJob">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>Job Number</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.idJob}} </mat-cell>
+        </ng-container> -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="jobtype_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Job Type </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.jobtype_name}} </mat-cell>
+        </ng-container>
+
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="job_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Job Number </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.job_name}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="subject_name">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Subject </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.subject_name}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="job_create_datetime">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Started </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.job_create_datetime | date:'yyyy / MM / dd'}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="job_dedline">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Ded Line </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.job_dedline | date:'yyyy / MM / dd'}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="jobstatus">
+          <mat-header-cell mat-sort-header *matHeaderCellDef> Staus </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.jobstatus}} </mat-cell>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="idJob">
+          <mat-header-cell mat-sort-header *matHeaderCellDef>More Info</mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-raised-button value="{{element.idJob}}" (click)="select(element)">
+              More Info
+            </button></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+
+
+
+  <div class="col-md-12" *ngIf="selectJob">
+    <mat-card>
+      <mat-card-title>Job Details</mat-card-title>
+      <!-- <mat-card-subtitle>All Details</mat-card-subtitle> -->
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <br>
+        <h5>Name : {{selectedJob.job_name}}</h5>
+        <h5>Start Date Time : {{selectedJob.job_create_datetime | date:'yyyy / MM / dd'}}</h5>
+        <h5>Dedline : {{selectedJob.job_dedline }}</h5>
+        <h5>Description : </h5>
+        <h5>Instruction : </h5>
+
+        <mat-divider></mat-divider>
+        <br><br>
+        <mat-vertical-stepper>
+          <div *ngFor="let step of steps; let i = index">
+            <mat-step label="{{step.step_name}} :- {{step.user_full_name}}  - {{step.subject_name}}">
+            </mat-step>
+          </div>
+        </mat-vertical-stepper>
+        <br><br>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button mat-raised-button>
+          Edit
+        </button>
+        <button mat-raised-button (click)="workWithThis()">
+          Work With This
+        </button>
+      </mat-card-actions>
+
+
+    </mat-card>
+  </div>
+
+
+
+
+
+</div>

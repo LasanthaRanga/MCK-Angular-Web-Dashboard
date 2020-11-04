@@ -1,0 +1,88 @@
+<p>paynow works!</p>
+
+<script src="https://test-bankofceylon.mtf.gateway.mastercard.com/checkout/version/40/checkout.js"
+  data-error="errorCallback" data-cancel="cancelCallback" data-complete="Receipt_NVP.php">
+  </script>
+
+<script type="text/javascript">
+  function errorCallback(error) {
+    alert(JSON.stringify(error));
+  }
+
+  function completeCallback(resultIndicator, sessionVersion) {
+    alert("Result Indicator");
+    alert(JSON.stringify(resultIndicator));
+    alert("Session Version:");
+    alert(JSON.stringify(sessionVersion));
+    alert("Successful Payment");
+  }
+
+  function cancelCallback() {
+    alert('Payment cancelled');
+
+  }
+
+
+  Checkout.configure({
+    merchant: 500,
+    order: {
+      amount: 500,
+      currency: 'LKR',
+      description: 'Hosted Checkout Test Order - Return to Merchant - PHP/JavaScript/NVP',
+      id: '10',
+      reference: '500',
+      item: {
+        brand: 'Mastercard',
+        description: 'Hosted Checkout Test Item - Return to Merchant - PHP/JavaScript/NVP',
+        name: 'HostedCheckoutItem',
+        quantity: '1',
+        unitPrice: '1.00',
+        unitTaxAmount: '1.00'
+      }
+    },
+
+    customer: {
+      email: '88lasantha@gmail.com'
+    },
+    interaction: {
+      merchant: {
+        name: 'Jonny Test Merchant for Hosted Checkout',
+        address: {
+          line1: '300 Adelaide Street',
+          line2: 'Brisbane Queensland 4000'
+        },
+        logo: 'https://www.albemarle-london.com/OnlineBooking/Albemarle/ShowPics/ALBAniv.png'
+      },
+      displayControl: {
+
+        billingAddress: 'HIDE',
+        orderSummary: 'HIDE'
+
+      }
+    },
+    session: {
+      id: '50'
+    }
+  });
+
+</script>
+
+<p style="text-align:center;"><a href="../index.html"><img
+      src="https://c.ap1.content.force.com/servlet/servlet.ImageServer?id=01590000008h62j&oid=00D90000000sUDO"
+      alt="Main Order Home Page" /></a></p>
+
+<br><br><br><br>
+<h1> Hosted Checkout - Return To Merchant - PHP/JavaScript/NVP</h1>
+<h2> <u>Order Summary</u></h2>
+<p> <strong> Order Amount :
+    <p> Currency&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:
+  </strong> </p>
+<br>
+
+<!-- Note in reality only one of the following functions will be called -->
+<p style="text-align:center;"><input type="button" value="Pay with Lightbox" onclick="Checkout.showLightbox();" /></p>
+<input type="button" mat-button value="Pay with Payment Page" (click)="showPaymentPage()" />
+<p style="text-align:center;"><a href="/"><br><br><input type="button"
+      value="Cancel Payment and Return to Main Index Page" /></a></p>
+
+{{kformid}} : {{amount}}

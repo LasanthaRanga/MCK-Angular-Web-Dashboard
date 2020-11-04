@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="col-md-12">
+
+
+        <mat-card>
+            <mat-card-title>
+                Tyres</mat-card-title>
+            <mat-card-subtitle>Vehicle : {{number}}</mat-card-subtitle>
+            <hr>
+            <mat-card-content>
+
+                <div *ngIf="size">
+                    <h6>Size Front Size: {{size.sizefront}} - Pressure : {{size.pressurefront}}</h6>
+                    <h6>Size Rear Size: {{size.sizerear}} - Pressure : {{size.pressurerear}}</h6>
+                </div>
+                <br>
+                <mat-form-field class="col-md-4">
+                    <mat-label>Date</mat-label>
+                    <input required matInput [matDatepicker]="fromd" [(ngModel)]="day">
+                    <mat-datepicker-toggle matSuffix [for]="fromd"></mat-datepicker-toggle>
+                    <mat-datepicker #fromd></mat-datepicker>
+                </mat-form-field>
+
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="Make" [(ngModel)]="make" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Amount Rs." [(ngModel)]="amount" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Milometer Reading" [(ngModel)]="mr" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="Maker's Number" [(ngModel)]="makerNumber" />
+                </mat-form-field>
+
+
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Position</mat-label>
+                    <mat-select required [(ngModel)]="position">
+                        <mat-option *ngFor="let i of positions" [value]="i.id">
+                            {{i.position}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+
+                <mat-form-field class="col-md-12" *ngIf="idTyre && status ===1">
+                    <textarea matInput type="text" placeholder="Comment For Deactive" [(ngModel)]="deactiveComment"
+                        (ngModelChange)="anable()"></textarea>
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button *ngIf="!idTyre" class="block" mat-raised-button color="primary"
+                        (click)="save()">Save</button>
+
+                    <button *ngIf="idTyre && status ===1 && !anableDeactive " class="block" mat-raised-button
+                        color="warn" disabled (click)="deactive()">Deactive</button>
+
+                    <button *ngIf="idTyre && status ===1 && anableDeactive" class="block" mat-raised-button color="warn"
+                        (click)="deactive()">Deactive</button>
+
+                    <button *ngIf="idTyre" class="block" mat-raised-button (click)="clearItem()">Clear</button>
+
+                </mat-card-actions>
+
+            </mat-card-content>
+        </mat-card>
+
+
+
+    </div>
+    <br>
+    <div class="col-md-12">
+
+        <div class="mat-elevation-z8">
+            <!-- <br> -->
+
+            <div class="col-md-12">
+                <mat-slide-toggle color="primary" [(ngModel)]="active" (ngModelChange)="filterDeactive()"> Filter
+                    Deactive</mat-slide-toggle>
+                <mat-form-field class="col-md-6">
+                    <input matInput (keyup)="applayFilter($event.target.value)" type="text" [(ngModel)]="inputval"
+                        placeholder="Search Here" />
+                </mat-form-field>
+            </div>
+
+            <mat-table matSort [dataSource]="dataSource">
+                <!-- Position Column -->
+                <ng-container matColumnDef="day">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Date</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.day | date:'yyyy-MM-dd'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="mr">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Meater</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.mr}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="position">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>position</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.position }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="make">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Make</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.make}} </mat-cell>
+                </ng-container>
+                            
+
+                <ng-container matColumnDef="idTayarReplace">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Select</mat-header-cell>
+                    <mat-cell *matCellDef="let element"><button mat-raised-button
+                            (click)="select(element)">Select</button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </div>
+</div>

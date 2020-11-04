@@ -1,0 +1,56 @@
+<mat-sidenav-container class="sidenav-container" >
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>
+      <div>
+        <!-- <img mat-card-image src="assets/images/mck.jpg" alt="Photo of a Shiba Inu"> -->
+      </div>
+    </mat-toolbar>
+    <mat-nav-list>
+
+      <div *ngIf="privilages">
+        <div *ngFor="let privilage of privilages">
+          <a color="primary" mat-list-item routerLink={{privilage.routerLink}} Active="router-link-active">
+            <mat-icon color="primary">{{privilage.image}}</mat-icon>{{privilage.caption}}
+          </a>
+        </div>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="navbar">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>MCK Web Portal</span>
+      <span class="flex-spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+        class="menuButton">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-menu #menu="matMenu" class="manuitem">
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!isLogin">
+        <mat-icon>lock_open</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item (click)="logOut()" *ngIf="isLogin">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+    <!-- Add Content Here -->
+    <div id="main-contener">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

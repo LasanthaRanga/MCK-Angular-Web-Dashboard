@@ -1,0 +1,68 @@
+<div class="container">
+  <!-- Content here -->
+  <div class="row">
+    <div class="col-md-5">
+      <mat-card>
+        <mat-card-title>Create Subjects</mat-card-title>
+        <mat-card-subtitle>There isn't your subjects please add</mat-card-subtitle>
+        <mat-card-content>
+          <mat-form-field>
+            <mat-label>Department or Section</mat-label>
+            <mat-select [(ngModel)]="dipid" aria-required="">
+              <div *ngFor="let item of departmentArray">
+                <mat-option value="{{item.idDipartment}}">{{item.dip_name}}</mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput (keyup)="applayFilter($event.target.value)" type="text" [(ngModel)]="subjectName"
+              placeholder="Subject Name" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput (keyup)="applayFilter($event.target.value)" type="text" [(ngModel)]="subjectCode"
+              placeholder="Subject Code" />
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="onAddSubject()" type="submit">Create Subject</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-7">
+      <div class="mat-elevation-z8">
+        <mat-table matSort [dataSource]="dataSource">
+          <!-- Position Column -->
+          <ng-container matColumnDef="idSubject">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.idSubject}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="subject_name">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subject_name}} </mat-cell>
+          </ng-container>
+
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="dip_name">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Department </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.dip_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="subject_code">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Subject Code </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.subject_code}} </mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+
+  </div>
+</div>

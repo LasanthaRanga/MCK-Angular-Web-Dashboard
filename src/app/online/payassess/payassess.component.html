@@ -1,0 +1,73 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button> -->
+  <span>MCK Web Portal</span>
+  <span class="flex-spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="menuButton">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu" class="manuitem">
+  <!-- <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button> -->
+  <!-- <button mat-menu-item [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!isLogin">
+    <mat-icon>lock_open</mat-icon>
+    <span>Login</span>
+  </button> -->
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
+<div class="container">
+  <!-- Content here -->
+  <br>
+  <div class="row" style="margin-top:5%">
+    <div class="col-md-12">
+      <mat-card>
+        <mat-card-title>Pay For Assessment</mat-card-title>
+        <mat-card-subtitle>Assessment ID Is : {{kformid}}</mat-card-subtitle>
+        <hr>
+        <mat-card-content class="example-container">
+          <h6>Customer Name : {{assdata.cus_name}}</h6>
+          <h6>Assessment Number : {{assdata.assessment_no}}</h6>
+          <h6>Ward : {{assdata.ward_name}}</h6>
+          <h6>Street : {{assdata.street_name}}</h6>
+          <h6>NIC : {{assdata.cus_nic}}</h6>
+          <h6>Allocation : {{assdata.ass_allocation}}</h6>
+          <h6>Nature : {{assdata.ass_nature_name}}</h6>
+          <h6>Rate : {{assdata.ass_nature_year_rate}}</h6>
+          <h6>Warant Rate : {{assdata.ass_nature_warrant_rate}}</h6>
+          <h6>Descritpion : {{assdata.ass_discription}}</h6>
+          <hr>
+          <h6>Last Year Arriars : {{obj.lya}}</h6>
+          <h6>Last Year Warrant : {{obj.lyw}}</h6>
+          <h6>This Year Arriars : {{obj.tya}}</h6>
+          <h6>This Year Warrant : {{obj.tyw}}</h6>
+          <h6>This Quater Payment : {{obj.qpay}}</h6>
+          <h6>Full Total : {{obj.tot}}</h6>
+
+          <mat-form-field>
+            <input matInput type="text" id="amount" [(ngModel)]="amount" placeholder="Pyament Amount" />
+          </mat-form-field>
+
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="gotoPay()" type="submit">
+              Pay Now
+            </button>
+          </mat-card-actions>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

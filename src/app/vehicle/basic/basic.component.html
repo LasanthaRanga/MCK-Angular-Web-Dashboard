@@ -1,0 +1,476 @@
+<div class="container">
+    <div class="col-md-12">
+
+        <mat-card>
+            <mat-card-title>
+                Vehicle Basic Information</mat-card-title>
+            <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
+            <hr>
+            <mat-card-content>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Vehicle Type</mat-label>
+                    <mat-select [(ngModel)]="type" required>
+                        <mat-option *ngFor="let i of types" [value]="i.idV_type">{{i.V_type_name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Make</mat-label>
+                    <mat-select required [(ngModel)]="make">
+                        <mat-option *ngFor="let i of makes" [value]="i.idV_make">{{i.V_make_company}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Manufactured</mat-label>
+                    <mat-select required [(ngModel)]="origin">
+                        <mat-option *ngFor="let i of origins" [value]="i.idV_Origin">{{i.V_Origin_name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Color</mat-label>
+                    <mat-select [(value)]="color">
+                        <mat-option *ngFor="let i of colors" [value]="i.idV_color">{{i.V_color_name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Transmission Type</mat-label>
+                    <mat-select required [(ngModel)]="transmition">
+                        <mat-option *ngFor="let i of transmitions" [value]="i.idV_transmision">
+                            {{i.V_transmision_name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Condition</mat-label>
+                    <mat-select required [(ngModel)]="condition">
+                        <mat-option *ngFor="let i of conditions" [value]="i.idV_condition">{{i.V_condition_type}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Province Code</mat-label>
+                    <mat-select required [(ngModel)]="province">
+                        <mat-option *ngFor="let i of provinces" [value]="i.idV_provincecode">{{i.V_provincecode}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required [(ngModel)]="registrationNo" matInput type="text" placeholder="Registration No" />
+                </mat-form-field>
+
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Registration Date</mat-label>
+                    <input required matInput [matDatepicker]="picker" [(ngModel)]="registrationDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required required matInput type="text" placeholder="Model" [(ngModel)]="model" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="Chassis No" [(ngModel)]="chassisNo" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="Local Agent" [(ngModel)]="localAgent" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Manufactured Year"
+                        [(ngModel)]="manufacturedYear" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Purchased Value" [(ngModel)]="purchasedValue" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Purchased Date</mat-label>
+                    <input required matInput [matDatepicker]="pi" [(ngModel)]="purchasedDate">
+                    <mat-datepicker-toggle matSuffix [for]="pi"></mat-datepicker-toggle>
+                    <mat-datepicker #pi></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Passenger Capacity"
+                        [(ngModel)]="passengerCapacity" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="La-no" [(ngModel)]="lono" />
+                </mat-form-field>
+
+                <!-- <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="Type Of Body" [(ngModel)]="typeOfBody" />
+                </mat-form-field> -->
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="text" placeholder="Pay Load" [(ngModel)]="payLoad" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-12">
+                    <textarea matInput type="text" placeholder="Description" [(ngModel)]="description"></textarea>
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="saveBasic()">Save
+                        Data</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+
+
+
+        <br>
+
+        <mat-card>
+            <mat-card-title>
+                Fuel And Oil Information</mat-card-title>
+            <hr>
+            <mat-card-content>
+                <mat-form-field class="col-md-4">
+                    <mat-label>Fuel Type</mat-label>
+                    <mat-select required [(ngModel)]="fuel">
+                        <mat-option *ngFor="let i of fuels" [value]="i.idV_Fuel">{{i.V_Fuel}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Tank Capacity" [(ngModel)]="ftank" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" placeholder="Reserve Capacity" [(ngModel)]="frtank" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Engin Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp1">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===1" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Engin Oil Capacity" [(ngModel)]="o1c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Gear Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp2">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===2" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Gear Oil Capacity" [(ngModel)]="o2c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Differential Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp3">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===3" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Differential Oil Capacity" [(ngModel)]="o3c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Hydraulic Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp4">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===4" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Hydraulic Oil Capacity" [(ngModel)]="o4c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Transmission Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp5">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===5" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Transmission Oil Capacity" [(ngModel)]="o5c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Steering Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp6">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===6" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Steering Oil Capacity" [(ngModel)]="o6c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Brake Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp7">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===7" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Brake Oil Capacity" [(ngModel)]="o7c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Clutch Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp9">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===8" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Clutch Oil Capacity" [(ngModel)]="o8c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Crank Case Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp8">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===9" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Crank Case Oil Capacity" [(ngModel)]="o9c" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <mat-label>Shok Absob Oil Type</mat-label>
+                    <mat-select required [(ngModel)]="oiltyp10">
+                        <div *ngFor="let i of oiltyps">
+                            <mat-option *ngIf="i.voiltypeId===10" [value]="i.vIdoil">{{i.voilname}}</mat-option>
+                        </div>
+
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Shok Absob Oil Capacity" [(ngModel)]="o10c" />
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="saveOil()">Save
+                        Data</button>
+                </mat-card-actions>
+
+            </mat-card-content>
+        </mat-card>
+
+        <br>
+
+
+
+        <mat-card>
+            <mat-card-title>
+                Engin Information</mat-card-title>
+            <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
+            <hr>
+            <mat-card-content>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="enginNo" placeholder="Engine No" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="enginType" placeholder="Engine Type" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="horsepower" placeholder="Horsepower" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="injectionPump"
+                        placeholder="Fuel injection pump Make and Maker's No" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="atomiser" placeholder="Atomiser (injectors) Make" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="coil" placeholder="Coil or Magneto Make" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="lighting" placeholder="Lighting Set Make " />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="cylinders" placeholder="Number of Cylinders " />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="bore" placeholder="Cylinders Bore " />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="strock" placeholder="Cylinder Strock " />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="carburettor" placeholder="Carburettor Make & Type " />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="jetsmainSize" placeholder="Size of jets main " />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="compensating" placeholder="Compensating" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="choke" placeholder="Choke" />
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="saveEngin()">Save
+                        Data</button>
+                </mat-card-actions>
+            </mat-card-content>
+
+        </mat-card>
+        <br>
+
+        <mat-card>
+            <mat-card-title>
+                Battery Info</mat-card-title>
+            <hr>
+            <mat-card-content>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="text" [(ngModel)]="btype" placeholder="Battery Type" />
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="number" [(ngModel)]="voltage" placeholder="Voltage" />
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="number" [(ngModel)]="amperage" placeholder="Amperage" />
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="number" [(ngModel)]="length" placeholder="Length" />
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="number" [(ngModel)]="width" placeholder="Width" />
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <input matInput type="number" [(ngModel)]="height" placeholder="Height" />
+                </mat-form-field>
+                <mat-card-actions align="end">
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="saveBattery()">Save
+                        Data</button>
+                </mat-card-actions>
+            </mat-card-content>
+        </mat-card>
+
+        <br>
+
+        <mat-card>
+            <mat-card-title>Tayar Info</mat-card-title>
+            <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
+            <hr>
+            <mat-card-content>
+                <mat-form-field class="col-md-6">
+                    <input matInput type="text" [(ngModel)]="tfsize" placeholder="Tyres Size- Front" />
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <input matInput type="number" [(ngModel)]="tfpressure" placeholder="Tyres Pressure Front" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput type="text" [(ngModel)]="tbsize" placeholder="Tyres Size-Rear" />
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <input matInput type="number" [(ngModel)]="tbpressure" placeholder="Tyres Pressure Rear" />
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="saveTayar()">Save
+                        Data</button>
+                </mat-card-actions>
+
+            </mat-card-content>
+
+        </mat-card>
+        <br>
+        <mat-card>
+            <mat-card-title>Other Infomation</mat-card-title>
+            <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
+            <hr>
+            <mat-card-content>
+
+                <mat-card-actions align="center">
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="goToTools()">Tools
+                        And Accessories</button>
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="goToFuelC()">Fuel
+                        Consumption</button>
+                    <button class="block" mat-raised-button color="primary" type="submit"
+                        (click)="goToLicences()">Annual
+                        Licences</button>
+                    <button class="block" mat-raised-button color="primary" type="submit"
+                        (click)="goToRepairs()">Repairs
+                        Or Replacements මේකේ පොඩි අවුලක් තියනවා</button>
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="goToTyres()">Tyres 
+                        Replacements</button>
+                    <button class="block" mat-raised-button color="primary" type="submit"
+                        (click)="goToService()">Servicing  මේකේ පොඩි අවුලක් තියනවා</button>
+                    <button class="block" mat-raised-button color="primary" type="submit" (click)="goToChange()">Changes
+                        Drivers  මේකේ තව ටිකක් හදන්න තියනවා</button>
+                    <br>
+                    <button class="block" mat-raised-button color="primary" type="submit"
+                        (click)="goToUpload()">Upload</button>
+                </mat-card-actions>
+
+
+            </mat-card-content>
+
+        </mat-card>
+        <br>
+
+    </div>
+</div>

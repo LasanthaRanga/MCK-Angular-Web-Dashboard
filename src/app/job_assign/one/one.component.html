@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-12">
+    <mat-card>
+      <mat-card-title> Application Process Steps </mat-card-title>
+      <!-- <mat-card-subtitle>All Details</mat-card-subtitle> -->
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <br>
+        <h5>Customer Name : <strong>{{uniquedata.cus_name}} </strong></h5>
+        <h5>Customer NIC : <strong>{{uniquedata.cus_nic}} </strong></h5>
+        <h5>Customer Mobile : <strong>{{uniquedata.mobile}}</strong></h5>
+        <br>
+        <h5>Start Date Time : <strong>{{uniquedata.start_at | date:'yyyy / MM / dd  -  HH:mm:ss'}}</strong> </h5>
+        <h5>Application Category : <strong>{{uniquedata.application_name}}</strong></h5>
+        <h5>Application ID : <strong>{{uniquedata.app_id}}</strong></h5>
+
+        <p></p>
+
+        <mat-divider></mat-divider>
+        <br><br>
+        <div class="container">
+          <mat-vertical-stepper>
+            <div *ngFor="let step of steps; let i = index">
+              <mat-step color="primary" label="{{step.step_name}} | {{step.user_cat}} | {{step.user_name}} "> </mat-step>
+            </div>
+          </mat-vertical-stepper>
+        </div>
+        <br><br>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

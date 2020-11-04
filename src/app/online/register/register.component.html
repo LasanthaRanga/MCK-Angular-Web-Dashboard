@@ -1,0 +1,43 @@
+<div class="container">
+  <!-- Content here -->
+  <br><br>
+  <div class="row" style="margin-top:10%">
+    <div class="col-md-4 offset-md-4">
+      <mat-card>
+        <mat-card-title>Register</mat-card-title>
+        <mat-card-subtitle>Register for online services - MC Kurunegala</mat-card-subtitle>
+        <mat-card-content class="example-container">
+          <form>
+            <mat-form-field class="col-md-12">
+              <input matInput type="text" id="name" [formControl]="name" placeholder="Name With Initials "/>
+              <mat-error *ngIf="name.invalid">{{getErrorMessageName()}}</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="col-md-12">
+                <input matInput type="text" id="nic" [formControl]="nic" placeholder="NIC "/>
+                <mat-error *ngIf="nic.invalid">{{getErrorMessageNic()}}</mat-error>
+              </mat-form-field>
+              <br>
+            <mat-form-field class="col-md-12">
+              <input matInput type="email" id="email" [formControl]="email" placeholder="Email Address" />
+              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="col-md-12">
+              <input matInput type="tel" id="mobie" [formControl]="mobile" placeholder="Mobile Number" />
+              <mat-error *ngIf="mobile.invalid">{{getErrorMessageMobile()}}</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="col-md-12">
+              <input matInput type="password" id="pword" [formControl]="pword" placeholder="Password" />
+              <mat-error *ngIf="mobile.invalid">{{getErrorMessagePword()}}</mat-error>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="register()" type="submit">Register</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

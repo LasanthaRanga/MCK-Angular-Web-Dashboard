@@ -1,0 +1,155 @@
+<div class="container">
+
+
+
+
+  <mat-card class="example-card" class="col-md-12 ">
+    <mat-card-header>
+      <mat-card-title>Map Assessment</mat-card-title>
+      <mat-card-subtitle>Map All pendig Assessment for online payment
+      </mat-card-subtitle>
+    </mat-card-header>
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-content>
+
+
+      <label id="example-radio-group-label">Filter Request</label>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+        [(ngModel)]="favoriteSeason">
+        <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season"
+          (click)="changeStatus(season)">
+          {{season}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div>Filter By : {{favoriteSeason}}</div>
+
+      <hr>
+
+
+
+      <div>
+
+        <div>
+          <mat-table matSort [dataSource]="dataSource">
+            <!-- Position Column -->
+            <ng-container matColumnDef="fullname">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Applicant </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.fullname}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="owner_name">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Owner </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.owner_name}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="application_name">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Type </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.application_name}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="mobile">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Mobile </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.mobile}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="idOnCusProp">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Info </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button mat-raised-button color="primary" (click)="loadOne(element.idOnCusProp)"> More Info </button>
+              </mat-cell>
+            </ng-container>
+
+
+
+
+
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+        </div>
+
+      </div>
+
+
+
+
+
+
+    </mat-card-content>
+
+  </mat-card>
+  <br>
+  <div *ngIf="selected">
+    <mat-card class="example-card" class="col-md-12 ">
+      <mat-card-header>
+        <mat-card-title>Property Type : {{selected?.application_name}} </mat-card-title>
+        <mat-card-subtitle>{{selected?.fullname}} NIC : {{selected?.nic}}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              <strong>Owner Name : </strong> {{selected?.owner_name}}
+            </p>
+            <p>
+              <strong>Email : </strong> {{selected?.email}}
+            </p>
+            <p>
+              <strong>Mobile NO : </strong> {{selected?.mobile}}
+            </p>
+            <h6>Property ID : {{selected?.propid}}</h6>
+            <h6>Recipt No : {{selected?.recitid}}</h6>
+            <p>
+              <strong>Description : </strong> {{selected?.description}}
+            </p>
+          </div>
+
+
+          <div class="col-md-6">
+            <form>
+              <mat-form-field class="col-md-12">
+                <input matInput type="number" id="propid" name="propid" [(ngModel)]="propid" placeholder="Property ID" />
+              </mat-form-field>
+              <br>
+
+              <mat-form-field class="col-md-12">
+                <textarea ngModel matInput type="text" id="description" name="description" [(ngModel)]="description" placeholder="Description"></textarea>
+              </mat-form-field>
+              <br>
+
+              <div class="row">
+                <div>
+                  <button mat-raised-button color="primary" (click)="confirm()" style="display: block">Confirm This
+                    Property</button>
+                </div>
+                <div>
+                  <button mat-raised-button color="warn" (click)="reject()" style="display: block"> Reject </button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+
+        </div>
+
+
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+  <br>
+  <br>
+
+
+</div>

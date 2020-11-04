@@ -1,0 +1,165 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button> -->
+  <span>MCK Web Portal</span>
+  <span class="flex-spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="menuButton">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu" class="manuitem">
+  <!-- <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button> -->
+  <!-- <button mat-menu-item [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!isLogin">
+    <mat-icon>lock_open</mat-icon>
+    <span>Login</span>
+  </button> -->
+  <button mat-menu-item (click)="logOut()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+<div class="container">
+
+
+  <!-- <carousel>
+    <slide>
+      <img src="assets/images/homes/one/1.jpg" alt="first slide" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div>
+    </slide>
+    <slide>
+      <img src="assets/images/homes/one/7.jpg" alt="second slide" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+        <h3>Second slide label</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </slide>
+    <slide>
+      <img src="assets/images/homes/one/8.jpg" alt="third slide" style="display: block; width: 100%;">
+      <div class="carousel-caption d-none d-md-block">
+        <h3>Third slide label</h3>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </div>
+    </slide>
+  </carousel>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <br>
+  <br>
+  <mat-card class="example-card" class="col-md-12">
+    <mat-card-header>
+      <mat-card-title>My Details</mat-card-title>
+
+    </mat-card-header>
+    <hr>
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-content>
+      <h5>Name : {{fullname}}</h5>
+      <h5>Email : {{email}}</h5>
+      <h5>NIC : {{nic}}</h5>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <mat-card class="example-card" class="col-md-12">
+    <mat-card-header>
+      <mat-card-title>My Properties</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+
+
+      <div>
+
+        <div>
+          <mat-table matSort [dataSource]="dataSource">
+            <!-- Position Column -->
+            <ng-container matColumnDef="application_name">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Category </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.application_name}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="owner_name">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Owner </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.owner_name}} </mat-cell>
+            </ng-container>
+
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="status">
+              <mat-header-cell mat-sort-header *matHeaderCellDef> Status </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <p *ngIf="element.status==0">Pending </p>
+                <p *ngIf="element.status==2">Rejected </p>
+                <button mat-raised-button color="primary" *ngIf="element.status==1"
+                  (click)="goToProperty(element.propid, element.appCat)">More Info</button>
+              </mat-cell>
+            </ng-container>
+
+
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[20]" showFirstLastButtons></mat-paginator>
+        </div>
+
+      </div>
+
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="gotoMap()" type="submit">Map property wiht my online
+        account</button>
+    </mat-card-actions>
+  </mat-card>
+  <br>
+  <br><br>
+  <!--
+  <mat-card class="example-card" class="col-md-12">
+    <mat-card-header>
+      <mat-card-title>Pay With Assessment ID</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="text" id="kform" [(ngModel)]="kformid" placeholder="Name With Initials " />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="gotoPay()" type="submit">
+        Go To Pay
+      </button>
+    </mat-card-actions>
+  </mat-card>
+-->
+</div>

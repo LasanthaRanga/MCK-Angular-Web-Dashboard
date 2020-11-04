@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="col-md-12">
+
+
+        <mat-card>
+            <mat-card-title>
+                Fuel Consumption</mat-card-title>
+            <mat-card-subtitle>Vehicle : {{number}}</mat-card-subtitle>
+            <hr>
+            <mat-card-content>
+
+                <mat-form-field class="col-md-12">
+                    <input required matInput type="text" [(ngModel)]="auditor" placeholder="Name Of Auditor" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <mat-label>Date of Audit</mat-label>
+                    <input required matInput [matDatepicker]="picker" [(ngModel)]="resarchDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" [(ngModel)]="withLoad" placeholder="With Load" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-4">
+                    <input required matInput type="number" [(ngModel)]="withoutLoad" placeholder="Without Load" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-12">
+                    <textarea matInput type="text" [(ngModel)]="comment" placeholder="Comment"></textarea>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-12" *ngIf="idFuelC && status ===1">
+                    <textarea matInput type="text" placeholder="Comment For Deactive" [(ngModel)]="deactiveComment"
+                        (ngModelChange)="anable()"></textarea>
+                </mat-form-field>
+
+                <mat-card-actions align="end">
+                    <button *ngIf="!idFuelC" class="block" mat-raised-button color="primary"
+                        (click)="save()">Save</button>
+
+                    <button *ngIf="idFuelC && status ===1 && !anableDeactive " class="block" mat-raised-button
+                        color="warn" disabled (click)="deactive()">Deactive</button>
+
+                    <button *ngIf="idFuelC && status ===1 && anableDeactive" class="block" mat-raised-button
+                        color="warn" (click)="deactive()">Deactive</button>
+
+                    <button *ngIf="idFuelC" class="block" mat-raised-button (click)="clearItem()">Clear</button>
+
+                </mat-card-actions>
+
+            </mat-card-content>
+        </mat-card>
+
+
+
+    </div>
+    <br>
+    <div class="col-md-12">
+
+        <div class="mat-elevation-z8">
+            <!-- <br> -->
+
+            <div class="col-md-12">
+                <mat-slide-toggle color="primary" [(ngModel)]="active" (ngModelChange)="filterDeactive()"> Filter
+                    Deactive</mat-slide-toggle>
+                <mat-form-field class="col-md-6">
+                    <input matInput (keyup)="applayFilter($event.target.value)" type="text" [(ngModel)]="inputval"
+                        placeholder="Search Here" />
+                </mat-form-field>
+            </div>
+
+            <mat-table matSort [dataSource]="dataSource">
+                <!-- Position Column -->
+                <ng-container matColumnDef="resarch_date">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Date</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.resarch_date | date:'yyyy-MM-dd'}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="auditor">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Auditor</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.auditor}} </mat-cell>
+                </ng-container>
+                <!-- Name Column -->
+
+                <ng-container matColumnDef="with_load">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>With Load</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.with_load}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="without_load">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Without Load</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.without_load}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="idFuelC">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>Select</mat-header-cell>
+                    <mat-cell *matCellDef="let element"><button mat-raised-button (click)="select(element)">Select</button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container">
+    <!-- Content here -->
+    <div class="row">
+        <mat-card class="col-md-8 offset-md-2">
+            <mat-card-title>Upload Vehicle, Pictures</mat-card-title>
+            <mat-card-subtitle>Select picture file and click upload</mat-card-subtitle>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <br>
+                <div class="col-md-12">
+                    <input style="display: none;" type="file" (change)="onFileSelected($event)" #fileInput />
+                    <button mat-raised-button (click)="fileInput.click()">Pick Image</button>
+                    <br>
+                    <br>
+                    <img [src]="url" height="200" *ngIf="url">
+                    <br>
+                    <br>
+                    <button mat-raised-button color="primary" (click)="onUpload()"> Upload Image
+                    </button>
+
+                </div>
+                <div class="col-md-4 offset-md-4" *ngIf="isLoading">
+                    <mat-progress-spinner ng-show="isLoading" value='{{upProgrus}}'></mat-progress-spinner>
+                </div>
+                <div *ngFor="let att of attach">
+                    <p *ngIf="!att.file && att.img!=null"></p>
+                    <img [src]="att.img" class="img-thumbnail">
+                </div>
+                <!-- <img mat-card-image src="" alt="Photo of a Shiba Inu"> -->
+                <!-- <img [src]="mySrc"> -->
+                <picture></picture>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

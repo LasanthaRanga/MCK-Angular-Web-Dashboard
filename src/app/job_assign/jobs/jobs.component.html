@@ -1,0 +1,52 @@
+<div class="container">
+  <!-- Content here -->
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card>
+        <mat-card-title>Job Details</mat-card-title>
+        <!-- <mat-card-subtitle>All Details</mat-card-subtitle> -->
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <br>
+          <h5>Name : {{selectedJob.job_name}}</h5>
+          <h5>Start Date Time : {{selectedJob.job_create_datetime | date:'yyyy / MM / dd'}}</h5>
+          <h5>Dedline : {{selectedJob.job_dedline | date:'yyyy / MM / dd' }}</h5>
+          <h5>Description : </h5>
+          <p> {{selectedJob.job_description}}</p>
+          <h5>Instruction : </h5>
+          <p>{{selectedJob.job_instruction}}</p>
+
+          <mat-divider></mat-divider>
+          <br><br>
+          <mat-vertical-stepper>
+            <div *ngFor="let step of steps; let i = index">
+              <mat-step label="{{step.step_name}} :- {{step.user_full_name}}  -  {{step.subject_name}} - {{step.date_time | date:'yyyy / MM / dd - HH:mm'}}">
+                <div *ngFor="let att of attach">
+                  <div *ngIf="step.idJob_assign==att.assign_id">
+                    <br><br>
+                    <p>{{att.job_comment}}</p>
+                    <div *ngIf="att.job_attach.length>0">
+                      <button mat-button *ngIf="att.file" (click)="clickOnload(att)"> Load Image </button>
+                      <img *ngIf="!att.file && att.img!=null" [src]="att.img" class="img-thumbnail">
+                      <mat-spinner *ngIf="!att.file && att.img==null"></mat-spinner>
+                    </div>
+                    <br><br>
+                    <mat-divider></mat-divider>
+                  </div>
+                </div>
+              </mat-step>
+            </div>
+          </mat-vertical-stepper>
+          <br><br>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="clickOnSubmit()"> Submig Details About My Works </button>
+        </mat-card-actions>
+
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<button (click)=" test()"></button>
