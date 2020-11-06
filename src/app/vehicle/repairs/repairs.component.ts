@@ -48,7 +48,7 @@ export class RepairsComponent implements OnInit {
 
 
   paList;
-  partsList;
+  partsList = [];
   total = 0;
 
 
@@ -117,11 +117,7 @@ export class RepairsComponent implements OnInit {
     this.http.post(this.urlVehicle + 'getParts', { id: idReplace }).subscribe(res => {
       //  console.log(res);
       this.paList = res;
-      this.partsList = res;
-      this.paList.forEach(element => {
-
-        // console.log(element);
-      });
+      this.partsList = this.paList;
     });
   }
 
