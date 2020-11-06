@@ -21,29 +21,39 @@ export class RepairsComponent implements OnInit {
   userId;
   anableDeactive = false;
 
-
-  idLicense;
-  no;
-  from;
-  to;
-  day;
-  amount;
-  status;
-  comment;
   deactiveComment;
-
-  types;
-  selectedType;
-
-  authorities;
-  selectedAutho;
-
-
   inputval = '';
 
+  idReplace;
+  inspectedDate;
+  replaceDate;
+  place;
+  description;
+  repairCost = 0;
+  fullTotal = 0;
+  status;
+  col1;
+  col2;
+  col3;
+  col4;
+
+  idParts;
+  itemName;
+  comment;
+  waranty;
+  reason;
+  amount;
+  pStatus;
+  productCost = 0;
 
 
-  displayedColumns: string[] = ['licensType', 'from', 'to', 'number', 'date', 'idLicense'];
+  paList;
+  partsList;
+  total = 0;
+
+
+
+  displayedColumns: string[] = ['replace_date', 'place', 'full_total', 'idReplace'];
   dataSource = <any>[];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -68,22 +78,50 @@ export class RepairsComponent implements OnInit {
         this.getNumber();
         // this.getTypes();
         // this.getAuthos();
-        // this.loadLicens(1);
+        this.loadReplace(1);
       } else { }
     });
   }
 
-  getTypes() {
-    this.http.post(this.urlVehicle + 'getLicenseTypes', {}).subscribe(res => {
-      this.types = res;
+  addItem() {
+    this.fullTotal = this.repairCost;
+    const item = {
+      itemName: this.itemName,
+      waranty: this.waranty,
+      reason: this.reason,
+      amount: this.amount
+    };
 
+    if (item.itemName && item.itemName.length > 1 && item.amount >= 0) {
+      this.partsList.push(item);
+    } else {
+      this.mg.message('warning', 'Enter Valid Data');
+    }
+
+    this.productCost = 0;
+
+    this.partsList.forEach(el => {
+      this.productCost += el.amount;
+      this.fullTotal += el.amount;
     });
+
   }
 
-  getAuthos() {
-    this.http.post(this.urlVehicle + 'getLicenseAuthority', {}).subscribe(res => {
-      this.authorities = res;
+  calTotal() {
+    this.fullTotal = this.repairCost + this.productCost;
+  }
 
+
+
+  getParts(idReplace) {
+    this.http.post(this.urlVehicle + 'getParts', { id: idReplace }).subscribe(res => {
+      //  console.log(res);
+      this.paList = res;
+      this.partsList = res;
+      this.paList.forEach(element => {
+
+        // console.log(element);
+      });
     });
   }
 
@@ -93,9 +131,9 @@ export class RepairsComponent implements OnInit {
     });
   }
 
-  loadLicens(st) {
+  loadReplace(st) {
     console.log("load");
-    this.http.post<any>(this.urlVehicle + 'getLicens', { id: this.basicID, status: st }).subscribe(res => {
+    this.http.post<any>(this.urlVehicle + 'getReplace', { id: this.basicID, status: st }).subscribe(res => {
       console.log(res);
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
@@ -108,13 +146,14 @@ export class RepairsComponent implements OnInit {
   }
 
   filterDeactive() {
-    console.log(this.active);
+    console.log(this.basicID);
     if (this.active) {
-      this.loadLicens(1);
+      this.loadReplace(1);
     } else {
-      this.loadLicens(2);
+      this.loadReplace(2);
     }
   }
+
   anable() {
     console.log(this.deactiveComment);
     if (this.deactiveComment && this.deactiveComment.length > 3) {
@@ -125,47 +164,78 @@ export class RepairsComponent implements OnInit {
   }
 
   save() {
-    const li = {
+    const replace = {
       basicID: this.basicID,
       number: this.number,
-      from: new DatePipe('en').transform(this.from, 'yyyy-MM-dd'),
-      to: new DatePipe('en').transform(this.to, 'yyyy-MM-dd'),
-      day: new DatePipe('en').transform(this.day, 'yyyy-MM-dd'),
-      no: this.no,
-      type: this.selectedType,
-      autho: this.selectedAutho,
-      amount: this.amount
+      inspectedDate: new DatePipe('en').transform(this.inspectedDate, 'yyyy-MM-dd'),
+      replaceDate: new DatePipe('en').transform(this.replaceDate, 'yyyy-MM-dd'),
+      place: this.place,
+      description: this.description,
+      repairCost: this.repairCost,
+      fullTotal: this.fullTotal,
+      col1: this.col1,
+      col2: this.col2,
+      col3: this.col3,
+      col4: this.col4,
+      userId: this.userId,
+      partsList: this.partsList
     };
 
-    // if (li.no && li.no.length > 3 && li.from && li.to && li.day && li.type && li.autho) {
-    //   this.http.post(this.urlVehicle + 'saveLicense', li).subscribe(res => {
-    //     this.loadLicens(1);
-    //     this.mg.message('success', 'License');
-    //   });
-    // } else {
-    //   this.mg.message('warning', 'Enter Valid Data');
-    // }
+    if (replace.inspectedDate && replace.replaceDate) {
+      this.http.post(this.urlVehicle + 'saveReplace', replace).subscribe(res => {
+        this.loadReplace(1);
+        this.mg.message('success', 'Repairs');
+        this.clearItem();
+      });
+    } else {
+      this.mg.message('warning', 'Enter Valid Data');
+    }
   }
 
   select(item) {
-   
+    console.log(item);
+    this.idReplace = item.idReplace;
+    this.inspectedDate = new DatePipe('en').transform(item.inspected_date, 'yyyy-MM-dd');
+    this.replaceDate = new DatePipe('en').transform(item.replace_date, 'yyyy-MM-dd');
+    this.place = item.place;
+    this.description = item.description;
+    this.repairCost = item.repair_cost;
+    this.fullTotal = item.full_total;
+    this.status = item.status;
+
+    this.getParts(item.idReplace);
+
+
+
   }
 
   clearItem() {
-   
+    this.inspectedDate = null;
+    this.replaceDate = null;
+    this.place = null;
+    this.description = null;
+    this.repairCost = 0;
+    this.fullTotal = 0;
+    this.col1 = null;
+    this.col2 = null;
+    this.col3 = null;
+    this.col4 = null;
+    this.partsList = [];
+    this.deactiveComment = null;
+    this.idReplace = null;
   }
 
   deactive() {
     const comment = {
       comment: this.deactiveComment,
-      idLicense: this.idLicense
+      id: this.idReplace
     };
-    // this.http.post(this.urlVehicle + 'deactiveLicense', comment).subscribe(res => {
-    //   this.mg.message('success', 'Deactivated');
-    //   console.log(res);
-    //   this.loadLicens(1);
-    //   this.clearItem();
-    // });
+    this.http.post(this.urlVehicle + 'deactiveReplace', comment).subscribe(res => {
+      this.mg.message('success', 'Deactivated');
+      console.log(res);
+      this.loadReplace(1);
+      this.clearItem();
+    });
   }
 
 }

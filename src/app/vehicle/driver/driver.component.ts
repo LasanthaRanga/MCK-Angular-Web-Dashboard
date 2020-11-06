@@ -5,6 +5,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import * as allert from '../../allert';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+
+
+export interface User {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-driver',
@@ -22,28 +31,21 @@ export class DriverComponent implements OnInit {
   anableDeactive = false;
 
 
-  idLicense;
-  no;
-  from;
-  to;
+
   day;
-  amount;
-  status;
-  comment;
   deactiveComment;
-
-  types;
-  selectedType;
-
-  authorities;
-  selectedAutho;
-
-
+  idDriver;
+  status;
   inputval = '';
 
+  myControl = new FormControl();
+  filteredOptions: Observable<User[]>;
+  selectedUser;
+  selectedUserName;
+  options: User[] = [];
+  dv;
 
-
-  displayedColumns: string[] = ['licensType', 'from', 'to', 'number', 'date', 'idLicense'];
+  displayedColumns: string[] = ['driverName', 'from', 'to', 'idDriver'];
   dataSource = <any>[];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -66,26 +68,52 @@ export class DriverComponent implements OnInit {
       this.basicID = params.id;
       if (this.basicID && this.basicID > 0) {
         this.getNumber();
-        // this.getTypes();
-        // this.getAuthos();
-        // this.loadLicens(1);
+        this.getDrivers();
+        this.loadDrivers(1);
       } else { }
     });
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.name),
+      map(name => name ? this._filter(name) : this.options.slice())
+    );
+
+
+
   }
 
-  getTypes() {
-    this.http.post(this.urlVehicle + 'getLicenseTypes', {}).subscribe(res => {
-      this.types = res;
+  private _filter(name: string): User[] {
+    console.log(name);
+    const filterValue = name.toLowerCase();
+    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  getDrivers() {
+    this.http.post(this.urlVehicle + 'getDrivers', {}).subscribe(res => {
+      this.dv = res;
+      const ar = [];
+      this.dv.forEach(el => {
+        ar.push({ id: el.id, name: el.name });
+      });
+      this.options = ar;
 
     });
   }
 
-  getAuthos() {
-    this.http.post(this.urlVehicle + 'getLicenseAuthority', {}).subscribe(res => {
-      this.authorities = res;
-
-    });
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
   }
+
+  selectedUserChange(value) {
+    console.log('change');
+    console.log(value);
+
+    this.selectedUser = value.id;
+    this.selectedUserName = value.name;
+
+  }
+
 
   getNumber() {
     this.http.post(this.urlVehicle + 'getNumber', { id: this.basicID }).subscribe(res => {
@@ -93,9 +121,9 @@ export class DriverComponent implements OnInit {
     });
   }
 
-  loadLicens(st) {
+  loadDrivers(st) {
     console.log("load");
-    this.http.post<any>(this.urlVehicle + 'getLicens', { id: this.basicID, status: st }).subscribe(res => {
+    this.http.post<any>(this.urlVehicle + 'getVehicleDriver', { id: this.basicID, status: st }).subscribe(res => {
       console.log(res);
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
@@ -110,11 +138,13 @@ export class DriverComponent implements OnInit {
   filterDeactive() {
     console.log(this.active);
     if (this.active) {
-      this.loadLicens(1);
+      this.loadDrivers(1);
     } else {
-      this.loadLicens(2);
+      this.loadDrivers(2);
     }
   }
+
+
   anable() {
     console.log(this.deactiveComment);
     if (this.deactiveComment && this.deactiveComment.length > 3) {
@@ -124,48 +154,53 @@ export class DriverComponent implements OnInit {
     }
   }
 
+
   save() {
     const li = {
       basicID: this.basicID,
-      number: this.number,
-      from: new DatePipe('en').transform(this.from, 'yyyy-MM-dd'),
-      to: new DatePipe('en').transform(this.to, 'yyyy-MM-dd'),
-      day: new DatePipe('en').transform(this.day, 'yyyy-MM-dd'),
-      no: this.no,
-      type: this.selectedType,
-      autho: this.selectedAutho,
-      amount: this.amount
+      userID: this.selectedUser,
+      driverName: this.selectedUserName,
+      day: new DatePipe('en').transform(this.day, 'yyyy-MM-dd')
     };
 
-    // if (li.no && li.no.length > 3 && li.from && li.to && li.day && li.type && li.autho) {
-    //   this.http.post(this.urlVehicle + 'saveLicense', li).subscribe(res => {
-    //     this.loadLicens(1);
-    //     this.mg.message('success', 'License');
-    //   });
-    // } else {
-    //   this.mg.message('warning', 'Enter Valid Data');
-    // }
+    if (this.userId > 0) {
+      this.http.post(this.urlVehicle + 'saveDriver', li).subscribe(res => {
+        this.loadDrivers(1);
+        this.mg.message('success', 'Driver');
+      });
+    } else {
+      this.mg.message('warning', 'Enter Valid Data');
+    }
   }
 
   select(item) {
-
+    console.log(item);
+    this.idDriver = item.idDriver;
+    this.selectedUserName = item.driverName;
+    this.displayFn({ id: item.userId, name: item.driverName });
+    this.status = item.status;
+    this.day = new DatePipe('en').transform(item.from, 'yyyy-MM-dd');
   }
 
   clearItem() {
-
+    this.idDriver = null;
+    this.displayFn = null;
+    this.status = null;
+    this.day = null;
   }
 
   deactive() {
     const comment = {
       comment: this.deactiveComment,
-      idLicense: this.idLicense
+      idDriver: this.idDriver,
+      day: new DatePipe('en').transform(new Date(), 'yyyy-MM-dd')
     };
-    // this.http.post(this.urlVehicle + 'deactiveLicense', comment).subscribe(res => {
-    //   this.mg.message('success', 'Deactivated');
-    //   console.log(res);
-    //   this.loadLicens(1);
-    //   this.clearItem();
-    // });
+    this.http.post(this.urlVehicle + 'deactiveDriver', comment).subscribe(res => {
+      this.mg.message('success', 'Deactivated');
+      console.log(res);
+      this.loadDrivers(1);
+      this.clearItem();
+    });
   }
 
 }

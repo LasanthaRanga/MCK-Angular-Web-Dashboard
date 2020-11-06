@@ -1,7 +1,48 @@
 <div class="container">
-    <p>fullinfo works!</p>
-    <button (click)="update()">Update</button>
-    <p>
-        {{data}}
-    </p>
+
+    <mat-card>
+        <mat-card-title>
+            Vehicle : {{number}}</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <hr>
+        <mat-card-content>
+
+
+
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <br>
+    <mat-card>
+        <mat-card-title>Vehicle ...</mat-card-title>
+        <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
+        <hr>
+        <mat-card-content>
+
+            <mat-card-actions>
+                <button class="block" mat-raised-button type="submit" (click)="goToTools()">Tools
+                    And Accessories</button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToFuelC()">Fuel
+                    Consumption</button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToLicences()">Annual
+                    Licences</button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToRepairs()">Repairs
+                    Or Replacements </button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToTyres()">Tyres
+                    Replacements</button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToService()">Servicing
+                </button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToChange()">Changes
+                    Drivers </button><br><br>
+                <button class="block" mat-raised-button type="submit" (click)="goToUpload()">Upload</button><br><br>
+                <button mat-raised-button (click)="update()">Update Basic Information</button>
+            </mat-card-actions>
+
+
+        </mat-card-content>
+
+    </mat-card>
+
+
+
 </div>

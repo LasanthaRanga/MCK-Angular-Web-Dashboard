@@ -447,7 +447,7 @@ export class BasicComponent implements OnInit {
     this.router.navigate(['v/driver', this.basicID]);
   }
 
-  goToUpload(){
+  goToUpload() {
     this.router.navigate(['v/upload', this.basicID]);
   }
 

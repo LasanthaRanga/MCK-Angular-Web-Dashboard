@@ -1,7 +1,5 @@
 <div class="container">
     <div class="col-md-12">
-
-
         <mat-card>
             <mat-card-title>
                 Repairs Or Replacements</mat-card-title>
@@ -9,64 +7,93 @@
             <hr>
             <mat-card-content>
 
-                <mat-form-field class="col-md-4">
+                <mat-form-field class="col-md-6">
                     <mat-label>Date Fitted or Inspected</mat-label>
-                    <input required matInput [matDatepicker]="fromd" [(ngModel)]="from">
+                    <input required matInput [matDatepicker]="fromd" [(ngModel)]="inspectedDate">
                     <mat-datepicker-toggle matSuffix [for]="fromd"></mat-datepicker-toggle>
                     <mat-datepicker #fromd></mat-datepicker>
                 </mat-form-field>
 
-                <mat-form-field class="col-md-4">
-                    <mat-label>Replacements Item</mat-label>
-                    <mat-select required [(ngModel)]="selectedAutho">
-                        <mat-option *ngFor="let i of authorities" [value]="i.idInsurenceCompany">
-                            {{i.InsurenceCompany_name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-
-                <mat-form-field class="col-md-4">
+                <mat-form-field class="col-md-6">
                     <mat-label>Replacement Date</mat-label>
-                    <input required matInput [matDatepicker]="tod" [(ngModel)]="to">
+                    <input required matInput [matDatepicker]="tod" [(ngModel)]="replaceDate">
                     <mat-datepicker-toggle matSuffix [for]="tod"></mat-datepicker-toggle>
                     <mat-datepicker #tod></mat-datepicker>
                 </mat-form-field>
 
+
                 <mat-form-field class="col-md-4">
-                    <input required matInput type="text" placeholder="Warranty Period" [(ngModel)]="no" />
+                    <input required matInput type="text" placeholder="Item Name" [(ngModel)]="itemName" />
                 </mat-form-field>
 
                 <mat-form-field class="col-md-4">
-                    <input required matInput type="number" placeholder="Amount Rs." [(ngModel)]="amount" />
+                    <input required matInput type="text" placeholder="Warranty Period" [(ngModel)]="waranty" />
                 </mat-form-field>
 
                 <mat-form-field class="col-md-4">
-                    <input required matInput type="number" placeholder="Reparing Cost Rs." [(ngModel)]="amount" />
+                    <input required matInput type="number" placeholder="Price Rs." [(ngModel)]="amount" />
+                </mat-form-field>
+
+                <mat-form-field class="col-md-12">
+                    <input matInput type="text" placeholder="Reason" [(ngModel)]="reason" />
+                </mat-form-field>
+
+                <br>
+
+                <button mat-raised-button expand="full" (click)="addItem()">Add Item</button>
+                <br>
+                <br>
+                <div *ngFor="let i of partsList">
+                    <mat-card>
+                        <mat-card-content>
+                            <p>Item Name : {{i.itemName}} Item Price Rs. {{i.amount | number}} Warranty: {{i.waranty}}
+                                Reson: {{i.reason}}</p>
+
+                        </mat-card-content>
+                    </mat-card>
+                    <br>
+                </div>
+
+
+
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="number" placeholder="Reparing Cost Rs." [(ngModel)]="repairCost" (ngModelChange)="calTotal()" />
                 </mat-form-field>
 
 
-                <mat-form-field class="col-md-4">
-                    <input required matInput type="text" placeholder="වැඩය කල ස්ථානය" [(ngModel)]="no" />
+                <mat-form-field class="col-md-6">
+                    <input required matInput type="text" placeholder="වැඩය කල ස්ථානය" [(ngModel)]="place" />
                 </mat-form-field>
 
 
+                <mat-form-field class="col-md-12">
+                    <textarea matInput type="text" placeholder="Description" [(ngModel)]="description"></textarea>
+                </mat-form-field>
 
-                <mat-form-field class="col-md-12" *ngIf="idLicense && status ===1">
+                <div class="col-md-12">
+                    <h5>Total Cost Rs. {{fullTotal}}</h5>
+                </div>
+
+
+
+                <mat-form-field class="col-md-12" *ngIf="idReplace && status ===1">
                     <textarea matInput type="text" placeholder="Comment For Deactive" [(ngModel)]="deactiveComment"
                         (ngModelChange)="anable()"></textarea>
                 </mat-form-field>
 
+
+
                 <mat-card-actions align="end">
-                    <button *ngIf="!idLicense" class="block" mat-raised-button color="primary"
+                    <button *ngIf="!idReplace" class="block" mat-raised-button color="primary"
                         (click)="save()">Save</button>
 
-                    <button *ngIf="idLicense && status ===1 && !anableDeactive " class="block" mat-raised-button
+                    <button *ngIf="idReplace && status ===1 && !anableDeactive " class="block" mat-raised-button
                         color="warn" disabled (click)="deactive()">Deactive</button>
 
-                    <button *ngIf="idLicense && status ===1 && anableDeactive" class="block" mat-raised-button
+                    <button *ngIf="idReplace && status ===1 && anableDeactive" class="block" mat-raised-button
                         color="warn" (click)="deactive()">Deactive</button>
 
-                    <button *ngIf="idLicense" class="block" mat-raised-button (click)="clearItem()">Clear</button>
+                    <button *ngIf="idReplace" class="block" mat-raised-button (click)="clearItem()">Clear</button>
 
                 </mat-card-actions>
 
@@ -94,32 +121,22 @@
             <mat-table matSort [dataSource]="dataSource">
                 <!-- Position Column -->
 
-                <ng-container matColumnDef="licensType">
-                    <mat-header-cell mat-sort-header *matHeaderCellDef>Type</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.licensType}} </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="from">
-                    <mat-header-cell mat-sort-header *matHeaderCellDef>From</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.from | date:'yyyy-MM-dd'}} </mat-cell>
-                </ng-container>
-
-                <ng-container matColumnDef="to">
-                    <mat-header-cell mat-sort-header *matHeaderCellDef>To</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.to | date:'yyyy-MM-dd'}} </mat-cell>
-                </ng-container>
-                <!-- Name Column -->
-                <ng-container matColumnDef="number">
-                    <mat-header-cell mat-sort-header *matHeaderCellDef>Number</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
-                </ng-container>
-                <!-- Name Column -->
-                <ng-container matColumnDef="date">
+                <ng-container matColumnDef="replace_date">
                     <mat-header-cell mat-sort-header *matHeaderCellDef>Date</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.date | date:'yyyy-MM-dd'}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.replace_date | date:'yyyy-MM-dd'}} </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="idLicense">
+                <ng-container matColumnDef="place">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>From</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.place}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="full_total">
+                    <mat-header-cell mat-sort-header *matHeaderCellDef>To</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.full_total }} </mat-cell>
+                </ng-container>
+               
+                <ng-container matColumnDef="idReplace">
                     <mat-header-cell mat-sort-header *matHeaderCellDef>Select</mat-header-cell>
                     <mat-cell *matCellDef="let element"><button mat-raised-button
                             (click)="select(element)">Select</button>
