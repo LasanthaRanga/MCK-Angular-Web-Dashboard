@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import * as allert from '../../allert';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-fullinfo',
@@ -16,11 +17,12 @@ export class FullinfoComponent implements OnInit {
   basicID;
   data;
   number;
-
-  constructor(private ar: ActivatedRoute, private router: Router, private http: HttpClient) {
+  attach = [];
+  constructor(private ar: ActivatedRoute, private router: Router, private http: HttpClient, private sanitizer: DomSanitizer) {
     this.ar.params.subscribe(params => this.basicID = params.id);
     if (this.basicID && this.basicID > 0) {
       this.getNumber();
+      this.loadAttach();
     }
   }
 
@@ -46,6 +48,29 @@ export class FullinfoComponent implements OnInit {
     });
   }
 
+  loadAttach() {
+    this.attach = [];
+    this.http.get(this.urlVehicle + 'image/' + this.basicID).subscribe(data => {
+      const array = JSON.parse(JSON.stringify(data));
+      for (let i = 0; i < array.length; i++) {
+        this.http.get(this.urlVehicle + '/img/' + array[i].V_images_path, {
+          responseType: 'blob'
+        }).subscribe(d => {
+          const imgg = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(d));
+          this.attach.push({
+            idJob_ac: array[i].idJob_ac,
+            job_comment: array[i].job_comment,
+            job_attach: array[i].job_attach,
+            assign_id: array[i].assign_id,
+            img: imgg,
+            file: true
+          });
+        });
+      }
+    });
+
+    console.log(this.attach);
+  }
 
 
 

@@ -22,28 +22,30 @@ export class ServceComponent implements OnInit {
   anableDeactive = false;
 
 
-  idLicense;
-  no;
-  from;
-  to;
-  day;
-  amount;
-  status;
+  idService;
+  date;
+  meeter;
   comment;
   deactiveComment;
+  status;
 
-  types;
+  typess;
   selectedType;
 
-  authorities;
-  selectedAutho;
+  idOilPart;
+  name;
+  qty;
+  value;
 
+  partsList = [];
+  paList;
+  total = 0;
 
   inputval = '';
 
 
 
-  displayedColumns: string[] = ['licensType', 'from', 'to', 'number', 'date', 'idLicense'];
+  displayedColumns: string[] = ['types', 'date', 'meeter', 'total', 'idService'];
   dataSource = <any>[];
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -66,26 +68,49 @@ export class ServceComponent implements OnInit {
       this.basicID = params.id;
       if (this.basicID && this.basicID > 0) {
         this.getNumber();
-        // this.getTypes();
+        this.getTypes();
         // this.getAuthos();
-        // this.loadLicens(1);
+        this.loadLicens(1);
       } else { }
     });
   }
 
   getTypes() {
-    this.http.post(this.urlVehicle + 'getLicenseTypes', {}).subscribe(res => {
-      this.types = res;
-
+    this.http.post(this.urlVehicle + 'getServiceTypes', {}).subscribe(res => {
+      this.typess = res;
+      console.log(this.typess);
     });
   }
 
-  getAuthos() {
-    this.http.post(this.urlVehicle + 'getLicenseAuthority', {}).subscribe(res => {
-      this.authorities = res;
 
+
+  addParts() {
+    this.total = 0;
+    const part = {
+      name: this.name,
+      qty: this.qty,
+      value: this.value
+    };
+    this.clearAddedItem();
+    this.partsList.push(part);
+    this.partsList.forEach(el => {
+      this.total += el.value;
     });
   }
+
+  remove(ell) {
+    var list = [];
+    this.partsList.forEach(eleme => {
+      if (ell != eleme) {
+        list.push(eleme);
+      } else {
+        this.total -= ell.value;
+      }
+    });
+    this.partsList = list;
+  }
+
+
 
   getNumber() {
     this.http.post(this.urlVehicle + 'getNumber', { id: this.basicID }).subscribe(res => {
@@ -95,7 +120,7 @@ export class ServceComponent implements OnInit {
 
   loadLicens(st) {
     console.log("load");
-    this.http.post<any>(this.urlVehicle + 'getLicens', { id: this.basicID, status: st }).subscribe(res => {
+    this.http.post<any>(this.urlVehicle + 'getServices', { id: this.basicID, status: st }).subscribe(res => {
       console.log(res);
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
@@ -125,40 +150,58 @@ export class ServceComponent implements OnInit {
   }
 
   save() {
-    const li = {
+    const sv = {
       basicID: this.basicID,
       number: this.number,
-      from: new DatePipe('en').transform(this.from, 'yyyy-MM-dd'),
-      to: new DatePipe('en').transform(this.to, 'yyyy-MM-dd'),
-      day: new DatePipe('en').transform(this.day, 'yyyy-MM-dd'),
-      no: this.no,
-      type: this.selectedType,
-      autho: this.selectedAutho,
-      amount: this.amount
+      date: new DatePipe('en').transform(this.date, 'yyyy-MM-dd'),
+      stype: this.selectedType,
+      meeter: this.meeter,
+      total: this.total,
+      partsList: this.partsList
     };
 
-    // if (li.no && li.no.length > 3 && li.from && li.to && li.day && li.type && li.autho) {
-    //   this.http.post(this.urlVehicle + 'saveLicense', li).subscribe(res => {
-    //     this.loadLicens(1);
-    //     this.mg.message('success', 'License');
-    //   });
-    // } else {
-    //   this.mg.message('warning', 'Enter Valid Data');
-    // }
+    if (sv.basicID > 0 && sv.date && sv.stype && sv.meeter && sv.meeter > 0) {
+      this.http.post(this.urlVehicle + 'saveService', sv).subscribe(res => {
+        this.loadLicens(1);
+        this.mg.message('success', 'Service');
+        this.clearItem();
+      });
+    } else {
+      this.mg.message('warning', 'Enter Valid Data');
+    }
   }
 
   select(item) {
+    this.idService = item.idService;
+    this.date = new DatePipe('en').transform(item.date, 'yyyy-MM-dd');
+    this.meeter = item.meeter;
+    this.status = item.status;
+  }
 
+  getParts(idReplace) {
+    this.http.post(this.urlVehicle + 'getServiceOils', { id: this.idService }).subscribe(res => {
+      this.paList = res;
+      this.partsList = this.paList;
+    });
+  }
+
+  clearAddedItem() {
+    this.name = ' ';
+    this.qty = ' ';
+    this.value = 0;
   }
 
   clearItem() {
-
+    this.idService = null;
+    this.date = null;
+    this.meeter = null;
+    this.status = 1;
   }
 
   deactive() {
     const comment = {
       comment: this.deactiveComment,
-      idLicense: this.idLicense
+      idService: this.idService
     };
     // this.http.post(this.urlVehicle + 'deactiveLicense', comment).subscribe(res => {
     //   this.mg.message('success', 'Deactivated');

@@ -1,5 +1,13 @@
 <div class="container">
     <div class="col-md-12">
+        <br>
+        <div>
+            <button mat-raised-button color="primary" [routerLink]="['/v/fullinfo/',basicID]"> <span
+                    class="material-icons">
+                    arrow_back
+                </span> Back Vehicle Info </button>
+        </div>
+        <br>
         <mat-card>
             <mat-card-title>
                 Repairs Or Replacements</mat-card-title>
@@ -48,6 +56,9 @@
                         <mat-card-content>
                             <p>Item Name : {{i.itemName}} Item Price Rs. {{i.amount | number}} Warranty: {{i.waranty}}
                                 Reson: {{i.reason}}</p>
+                            <button mat-button (click)="remove(i)"> <span class="material-icons">
+                                    highlight_off
+                                </span> Remove </button>
 
                         </mat-card-content>
                     </mat-card>
@@ -57,7 +68,8 @@
 
 
                 <mat-form-field class="col-md-6">
-                    <input required matInput type="number" placeholder="Reparing Cost Rs." [(ngModel)]="repairCost" (ngModelChange)="calTotal()" />
+                    <input required matInput type="number" placeholder="Reparing Cost Rs." [(ngModel)]="repairCost"
+                        (ngModelChange)="calTotal()" />
                 </mat-form-field>
 
 
@@ -135,7 +147,7 @@
                     <mat-header-cell mat-sort-header *matHeaderCellDef>To</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.full_total }} </mat-cell>
                 </ng-container>
-               
+
                 <ng-container matColumnDef="idReplace">
                     <mat-header-cell mat-sort-header *matHeaderCellDef>Select</mat-header-cell>
                     <mat-cell *matCellDef="let element"><button mat-raised-button

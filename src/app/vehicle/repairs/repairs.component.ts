@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import * as allert from '../../allert';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-repairs',
@@ -94,6 +95,7 @@ export class RepairsComponent implements OnInit {
 
     if (item.itemName && item.itemName.length > 1 && item.amount >= 0) {
       this.partsList.push(item);
+      this.clearAddedItem();
     } else {
       this.mg.message('warning', 'Enter Valid Data');
     }
@@ -107,10 +109,30 @@ export class RepairsComponent implements OnInit {
 
   }
 
+  clearAddedItem() {
+    this.itemName = ' ';
+    this.waranty = ' ';
+    this.reason = null;
+    this.amount = 0;
+  }
+
   calTotal() {
     this.fullTotal = this.repairCost + this.productCost;
   }
 
+  remove(ell) {
+
+    var list = [];
+    this.partsList.forEach(eleme => {
+      if (ell != eleme) {
+        list.push(eleme);
+      } else {
+        this.productCost -= ell.amount;
+        this.fullTotal -= ell.amount;
+      }
+    });
+    this.partsList = list;
+  }
 
 
   getParts(idReplace) {

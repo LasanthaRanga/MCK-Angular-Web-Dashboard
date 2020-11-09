@@ -113,6 +113,7 @@ export class FuelcComponent implements OnInit {
         console.log(res);
         this.loadFuelc(1);
         this.mg.message('success', 'Fuel Consumption');
+        this.clearItem();
       });
     } else {
       this.mg.message('warning', 'Enter Valid Data');

@@ -141,6 +141,7 @@ export class LicensComponent implements OnInit {
       this.http.post(this.urlVehicle + 'saveLicense', li).subscribe(res => {
         this.loadLicens(1);
         this.mg.message('success', 'License');
+        this.clearItem();
       });
     } else {
       this.mg.message('warning', 'Enter Valid Data');

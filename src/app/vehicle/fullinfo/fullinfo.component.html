@@ -1,4 +1,26 @@
 <div class="container">
+    <br>
+    <div>
+        <button mat-raised-button color="primary" [routerLink]="['/allvehicle']"> <span class="material-icons">
+                arrow_back
+            </span> Back To All Vehicles</button>
+    </div>
+    <br>
+
+    <div class="row">
+
+        <div *ngFor="let att of attach" class="col-md-3">
+            <p *ngIf="!att.file && att.img!=null"></p>
+            <img [src]="att.img" class="img-thumbnail">
+        </div>
+
+    </div>
+
+    <br>
+
+
+
+
 
     <mat-card>
         <mat-card-title>
@@ -13,6 +35,14 @@
     </mat-card>
     <br>
     <br>
+    <div class="row">
+        <div class="col-3" (click)="goToTools()" style="text-align: center;">
+            <img src="../../../assets/images/icons/tools.jpg" class="img-thumbnail" />
+            <a> Tools And Accessories </a>
+        </div>
+    </div>
+    <br>
+
     <mat-card>
         <mat-card-title>Vehicle ...</mat-card-title>
         <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
@@ -20,8 +50,7 @@
         <mat-card-content>
 
             <mat-card-actions>
-                <button class="block" mat-raised-button type="submit" (click)="goToTools()">Tools
-                    And Accessories</button><br><br>
+                <button class="block" mat-raised-button type="submit"></button><br><br>
                 <button class="block" mat-raised-button type="submit" (click)="goToFuelC()">Fuel
                     Consumption</button><br><br>
                 <button class="block" mat-raised-button type="submit" (click)="goToLicences()">Annual

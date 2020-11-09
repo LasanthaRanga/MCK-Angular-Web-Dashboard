@@ -167,6 +167,7 @@ export class DriverComponent implements OnInit {
       this.http.post(this.urlVehicle + 'saveDriver', li).subscribe(res => {
         this.loadDrivers(1);
         this.mg.message('success', 'Driver');
+        this.clearItem();
       });
     } else {
       this.mg.message('warning', 'Enter Valid Data');
