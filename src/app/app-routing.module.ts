@@ -36,6 +36,7 @@ import { RepairsComponent } from './vehicle/repairs/repairs.component';
 import { TyresComponent } from './vehicle/tyres/tyres.component';
 import { ServceComponent } from './vehicle/servce/servce.component';
 import { DriverComponent } from './vehicle/driver/driver.component';
+import { MixComponent } from './admin/mix/mix.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'v/tyres/:id', component: TyresComponent },
   { path: 'v/service/:id', component: ServceComponent },
   { path: 'v/driver/:id', component: DriverComponent },
+  { path: 'admin/mix', component:MixComponent },
   { path: '**', component: HomeComponent },
 ];
 
@@ -120,5 +122,6 @@ export const routComponents = [
   RepairsComponent,
   TyresComponent,
   ServceComponent,
-  DriverComponent
+  DriverComponent,
+  MixComponent
 ];
