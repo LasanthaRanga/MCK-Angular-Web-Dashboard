@@ -176,11 +176,10 @@ export class ServceComponent implements OnInit {
     this.date = new DatePipe('en').transform(item.date, 'yyyy-MM-dd');
     this.meeter = item.meeter;
     this.status = item.status;
-    this.getParts(item.idService);
   }
 
-  getParts(idService) {
-    this.http.post(this.urlVehicle + 'getServiceOils', { id: idService }).subscribe(res => {
+  getParts(idReplace) {
+    this.http.post(this.urlVehicle + 'getServiceOils', { id: this.idService }).subscribe(res => {
       this.paList = res;
       this.partsList = this.paList;
     });
