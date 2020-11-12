@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container" >
+<mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
@@ -8,11 +8,36 @@
     </mat-toolbar>
     <mat-nav-list>
 
+      <div>
+        <mat-accordion>
+
+
+        </mat-accordion>
+      </div>
+
       <div *ngIf="privilages">
         <div *ngFor="let privilage of privilages">
-          <a color="primary" mat-list-item routerLink={{privilage.routerLink}} Active="router-link-active">
-            <mat-icon color="primary">{{privilage.image}}</mat-icon>{{privilage.caption}}
-          </a>
+          <div *ngIf="privilage.type=='normal'">
+            <a color="primary" mat-list-item routerLink={{privilage.routerLink}} Active="router-link-active">
+              <mat-icon color="primary">{{privilage.image}}</mat-icon>{{privilage.caption}}
+            </a>
+          </div>
+          <div *ngIf="privilage.type=='main'">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon color="primary">grade </mat-icon> Admin
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div *ngFor="let sub of privilage.sub">
+                <a color="primary" mat-list-item routerLink={{sub.routerLink}} Active="router-link-active">
+                  <mat-icon color="primary">{{sub.image}}</mat-icon>{{sub.caption}}
+                </a>
+              </div>
+            </mat-expansion-panel>
+          </div>
+
         </div>
       </div>
     </mat-nav-list>

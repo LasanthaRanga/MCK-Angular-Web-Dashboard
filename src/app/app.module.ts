@@ -14,6 +14,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { DatePipe } from '@angular/common';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
 // servises
 import { JobtypesService } from './service/jobtypes.service';
 import { LoginService } from './service/login/login.service';
@@ -43,6 +44,7 @@ import { DialogComponent } from './dialog/dialog.component';
     BrowserAnimationsModule,
     MaterialModule,
     MatSlideToggleModule,
+    MatExpansionModule,
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
