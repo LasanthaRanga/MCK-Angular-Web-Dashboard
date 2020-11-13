@@ -46,9 +46,9 @@ export class MainNavComponent {
     this.http.post(this._urlprivilage, { id: iduser }).subscribe(data => {
       this.privilages = null;
       this.privilages = JSON.parse(JSON.stringify(data));
-      console.log(this.privilages);
+
       sessionStorage.setItem('privilage', JSON.stringify(this.privilages));
-      console.log("Privilage Array  -in login sevice " + this.privilages);
+
       if (this.privilages != null && this.privilages.length > 0) {
         this.isLogin = true;
 
@@ -63,8 +63,7 @@ export class MainNavComponent {
         this.isLogin = false;
       }
     });
-    // console.log("Navigation Privilage array --  " + this.privilages);
-    // this.isLogin = this._login.checkLog();
+
   }
 
 
