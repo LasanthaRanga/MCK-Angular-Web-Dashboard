@@ -56,14 +56,17 @@
       </button>
     </mat-toolbar>
     <mat-menu #menu="matMenu" class="manuitem">
-      <button mat-menu-item>
+
+      <!-- <button mat-menu-item>
         <mat-icon>dialpad</mat-icon>
         <span>Redial</span>
       </button>
+
       <button mat-menu-item disabled>
         <mat-icon>voicemail</mat-icon>
         <span>Check voice mail</span>
-      </button>
+      </button> -->
+
       <button mat-menu-item [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!isLogin">
         <mat-icon>lock_open</mat-icon>
         <span>Login</span>

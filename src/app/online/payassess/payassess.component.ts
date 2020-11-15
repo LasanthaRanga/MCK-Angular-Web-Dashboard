@@ -34,6 +34,10 @@ export class PayassessComponent implements OnInit {
   user_id;
 
   amount;
+  fullPay;
+  onRate;
+  onValue;
+
   kformid;
   assdata = {
     idAssessment: 0,
@@ -72,6 +76,7 @@ export class PayassessComponent implements OnInit {
         this.kformid = params.id;
         this.collectAssessmentData();
         this.collectAssessmentValues();
+        this.getOnlineRate();
       }
     });
 
@@ -104,34 +109,45 @@ export class PayassessComponent implements OnInit {
     });
   }
 
+  getOnlineRate() {
+    this.http.post(this.urlPay + '/rate', {}).subscribe(res => {
+      this.onRate = res[0].rate;
+      console.log(this.onRate);
+    });
+  }
+
+  calTotal() {
+
+    this.onValue = this.amount * this.onRate / 100;
+    this.fullPay = this.amount + this.onValue;
+
+  }
+
+
   gotoPay() {
     const param = {
       cusid: this.user_id,
       appcat: 2,
       app: this.assdata.idAssessment,
       amount: this.amount,
+      fullPay: this.fullPay,
+      onValue: this.onValue,
       des: 'pending',
       o1: '-',
       o2: '-'
     };
 
-
-
     this.http.post(this.urlPay + 'pay', param).subscribe(data => {
       console.log(data);
       const onpayid = data['insertId'];
       console.log(onpayid);
-      const path = 'https://kgmc.lk/php/HostedCheckoutReturnToMerchant_NVP.php?order_amount=' + this.amount +
+      const path = 'https://kgmc.lk/php/HostedCheckoutReturnToMerchant_NVP.php?order_amount=' + this.fullPay +
         '&order_currency=LKR&customer_receipt_email=' + this.email +
         '&appid=' + this.assdata.idAssessment +
         '&onpayid=' + onpayid;
       console.log(path);
       window.location.href = path;
-
-
     });
-
-
   }
 
   logOut() {

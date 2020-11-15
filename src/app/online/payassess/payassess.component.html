@@ -1,8 +1,5 @@
 <mat-toolbar color="primary" class="navbar">
-  <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-    *ngIf="isHandset$ | async">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button> -->
+
   <span>MCK Web Portal</span>
   <span class="flex-spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="menuButton">
@@ -10,18 +7,7 @@
   </button>
 </mat-toolbar>
 <mat-menu #menu="matMenu" class="manuitem">
-  <!-- <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
-  <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voice mail</span>
-  </button> -->
-  <!-- <button mat-menu-item [routerLink]="['/login']" routerLinkActive="router-link-active" *ngIf="!isLogin">
-    <mat-icon>lock_open</mat-icon>
-    <span>Login</span>
-  </button> -->
+
   <button mat-menu-item (click)="logOut()">
     <mat-icon>exit_to_app</mat-icon>
     <span>Logout</span>
@@ -30,7 +16,6 @@
 
 <div class="container">
   <!-- Content here -->
-  <br>
   <div class="row" style="margin-top:5%">
     <div class="col-md-12">
       <mat-card>
@@ -42,32 +27,93 @@
           <h6>Assessment Number : {{assdata.assessment_no}}</h6>
           <h6>Ward : {{assdata.ward_name}}</h6>
           <h6>Street : {{assdata.street_name}}</h6>
+          <h6>Descritpion : {{assdata.ass_discription}}</h6>
           <h6>NIC : {{assdata.cus_nic}}</h6>
           <h6>Allocation : {{assdata.ass_allocation}}</h6>
           <h6>Nature : {{assdata.ass_nature_name}}</h6>
           <h6>Rate : {{assdata.ass_nature_year_rate}}</h6>
           <h6>Warant Rate : {{assdata.ass_nature_warrant_rate}}</h6>
-          <h6>Descritpion : {{assdata.ass_discription}}</h6>
-          <hr>
-          <h6>Last Year Arriars : {{obj.lya}}</h6>
-          <h6>Last Year Warrant : {{obj.lyw}}</h6>
-          <h6>This Year Arriars : {{obj.tya}}</h6>
-          <h6>This Year Warrant : {{obj.tyw}}</h6>
-          <h6>This Quater Payment : {{obj.qpay}}</h6>
-          <h6>Full Total : {{obj.tot}}</h6>
+          <br>
+          <div class="row justify-content-md-center">
+            <mat-card class="col-md-8">
+              <mat-card-content>
+                <table style="width:100%; font-size: 18px;">
 
-          <mat-form-field>
-            <input matInput type="text" id="amount" [(ngModel)]="amount" placeholder="Pyament Amount" />
-          </mat-form-field>
+                  <tr>
+                    <td>Last Year Arriars </td>
+                    <td style="text-align:right">{{obj.lya  | currency :'LKR  ':'symbol':'1.2-2'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Last Year Warrant</td>
+                    <td style="text-align:right">{{obj.lyw | currency :'LKR  ':'symbol':'1.2-2'}}</td>
+                  </tr>
 
-          <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="gotoPay()" type="submit">
-              Pay Now
-            </button>
-          </mat-card-actions>
+                  <tr>
+                    <td>This Year Arriars</td>
+                    <td style="text-align:right"> {{obj.tya | currency :'LKR  ':'symbol':'1.2-2'}}</td>
+                  </tr>
+
+
+                  <tr>
+                    <td>This Year Warrant </td>
+                    <td style="text-align:right">{{obj.tyw | currency :'LKR  ':'symbol':'1.2-2'}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>This Quater Payment</td>
+                    <td style="text-align:right">{{obj.qpay | currency :'LKR  ':'symbol':'1.2-2'}}</td>
+                  </tr>
+                  <br>
+                  <tr>
+                    <td style="color: slateblue;">Full Total</td>
+                    <td style="text-align:right; color: slateblue;">{{obj.tot | currency :'LKR  ':'symbol':'1.2-2'}}</td>
+                  </tr>
+                  <hr>
+                  <tr>
+                    <td style="color: blue;">Enter Payment Amount Here</td>
+                    <td style="text-align:right">
+                      <mat-form-field>
+                        <input matInput style="text-align: right;" type="number" id="amount" [(ngModel)]="amount"
+                          placeholder="Pyament Amount" (ngModelChange)="calTotal()" />
+                      </mat-form-field>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="color: orangered;">Online Payment Charge Prisantage</td>
+                    <td style="text-align:right; color: orangered;">
+                      {{onRate}} %
+                    </td>
+                  </tr>
+                  <br>
+                  <tr>
+                    <td style="color: green;">Total Cost You Have To Pay</td>
+                    <td style="text-align:right; color: green; font-weight: bold;">
+                      {{fullPay  | currency :'LKR  ':'symbol':'1.2-2'}}
+                    </td>
+                  </tr>
+
+                </table>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-raised-button color="primary" (click)="gotoPay()" type="submit">
+                  Pay Now
+                </button>
+              </mat-card-actions>
+            </mat-card>
+
+          </div>
+
+
+
+
+
+
 
         </mat-card-content>
       </mat-card>
+      <br>
     </div>
   </div>
+
 </div>
