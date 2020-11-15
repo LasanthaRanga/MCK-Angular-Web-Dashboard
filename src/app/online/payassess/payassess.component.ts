@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import * as statics from '../../global';
 import * as allert from '../../allert';
 import { LoginService } from '../../../app/service/login/login.service';
+import { DatePipe } from '@angular/common';
 
 export interface Obj {
   lya: number;
@@ -37,6 +38,10 @@ export class PayassessComponent implements OnInit {
   fullPay;
   onRate;
   onValue;
+
+  disable = false;
+  reson;
+
 
   kformid;
   assdata = {
@@ -77,6 +82,7 @@ export class PayassessComponent implements OnInit {
         this.collectAssessmentData();
         this.collectAssessmentValues();
         this.getOnlineRate();
+        this.isDisabled();
       }
     });
 
@@ -110,9 +116,43 @@ export class PayassessComponent implements OnInit {
   }
 
   getOnlineRate() {
-    this.http.post(this.urlPay + '/rate', {}).subscribe(res => {
+    this.http.post(this.urlPay + 'rate', {}).subscribe(res => {
       this.onRate = res[0].rate;
       console.log(this.onRate);
+    });
+  }
+
+  isDisabled() {
+    let dis;
+    this.http.post(this.urlPay + 'disabled', { cat: 2 }).subscribe(res => {
+      const time = res[0].block_dateTime;
+      this.reson = res[0].reson;
+
+      const disable = new DatePipe('en').transform(time, 'yyyy-MM-dd HH:mm:ss');
+      const today = new DatePipe('en').transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+
+
+      console.log('----------------------------');
+      console.log(disable);
+      console.log(today);
+      console.log('----------------------------');
+
+
+      if (disable >= today) {
+        this.disable = false;
+      } else {
+        this.disable = true;
+      }
+
+
+
+
+
+
+
+
+
+
     });
   }
 
