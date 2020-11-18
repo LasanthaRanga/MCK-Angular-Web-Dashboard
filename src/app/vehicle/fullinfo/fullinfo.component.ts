@@ -13,6 +13,19 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./fullinfo.component.css']
 })
 export class FullinfoComponent implements OnInit {
+
+  private tools = require('../../../assets/images/icons/settings.png');
+  private fuel = require('../../../assets/images/icons/fuelc.png');
+  private licens = require('../../../assets/images/icons/driving-license.png');
+  private repair = require('../../../assets/images/icons/car-repair.png');
+  private tire = require('../../../assets/images/icons/tire.png');
+  private service = require('../../../assets/images/icons/car-wash.png');
+  private driver = require('../../../assets/images/icons/driver.png');
+  private photo = require('../../../assets/images/icons/photo.png');
+  private upda = require('../../../assets/images/icons/updated.png');
+
+
+
   urlVehicle = statics.ip + 'vehicle/';
   basicID;
   data;

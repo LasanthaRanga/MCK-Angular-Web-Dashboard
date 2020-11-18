@@ -1,14 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/login/login.service';
+import * as statics from '../global';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router, private login: LoginService) { }
+  url = statics.ip + 'userlogin/';
+
+  name;
+
+  constructor(private router: Router, private login: LoginService, private http: HttpClient) {
+    this.getNames();
+  }
 
   isLogin = false;
 
@@ -24,6 +36,11 @@ export class HomeComponent implements OnInit {
 
   }
 
+  getNames() {
+    this.http.post(this.url + 'keyval', { key: 'name' }).subscribe(res => {
+      this.name = res[0].value;
+    });
+  }
 
   goToRegister() {
     this.router.navigate(['/register']);

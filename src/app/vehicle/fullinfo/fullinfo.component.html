@@ -36,42 +36,78 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-3" (click)="goToTools()" style="text-align: center;">
-            <img src="../../../assets/images/icons/tools.jpg" class="img-thumbnail" />
-            <a> Tools And Accessories </a>
+
+
+        <div class="col-md-3" (click)="goToTools()" style="text-align: center; padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="tools" class="img-thumbnail" />
+                <a href=""> Tools And Accessories </a>
+            </mat-card>
         </div>
+
+
+        <div class="col-md-3" (click)="goToFuelC()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="fuel" class="img-thumbnail" />
+                <a href="">Fuel Consumption </a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="goToLicences()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="licens" class="img-thumbnail" />
+                <a href="">Annual Licences </a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="goToRepairs()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="repair" class="img-thumbnail" />
+                <a href="">Repairs Or Replacements</a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="goToTyres()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="tire" class="img-thumbnail" />
+                <a href="">Tyres Replacements</a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="goToService()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="service" class="img-thumbnail" />
+                <a href="">Servicing</a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="goToChange()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="driver" class="img-thumbnail" />
+                <a href="">Changes Drivers  </a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="goToUpload()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="photo" class="img-thumbnail" />
+                <a href="">Upload</a>
+            </mat-card>
+        </div>
+
+        <div class="col-md-3" (click)="update()" style="text-align: center;padding-bottom: 20px;">
+            <mat-card>
+                <img [src]="upda" class="img-thumbnail" />
+                <a href="">Update Basic Information</a>
+            </mat-card>
+        </div>
+
+
+
+
+
+
     </div>
     <br>
-
-    <mat-card>
-        <mat-card-title>Vehicle ...</mat-card-title>
-        <!-- <mat-card-subtitle>Fill details</mat-card-subtitle> -->
-        <hr>
-        <mat-card-content>
-
-            <mat-card-actions>
-                <button class="block" mat-raised-button type="submit"></button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToFuelC()">Fuel
-                    Consumption</button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToLicences()">Annual
-                    Licences</button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToRepairs()">Repairs
-                    Or Replacements </button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToTyres()">Tyres
-                    Replacements</button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToService()">Servicing
-                </button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToChange()">Changes
-                    Drivers </button><br><br>
-                <button class="block" mat-raised-button type="submit" (click)="goToUpload()">Upload</button><br><br>
-                <button mat-raised-button (click)="update()">Update Basic Information</button>
-            </mat-card-actions>
-
-
-        </mat-card-content>
-
-    </mat-card>
-
-
 
 </div>

@@ -294,30 +294,34 @@ export class BasicComponent implements OnInit {
 
   getOil() {
     this.http.post<any>(this.urlVehicle + 'getOil', { id: this.basicID }).subscribe(res => {
+      console.log(res);
+      console.log('oils ------------------------------------------');
       const data = res[0];
-      this.fuel = data.fueltype;
-      this.ftank = data.fuelMainCapacity;
-      this.frtank = data.fuelReserveCapacity;
-      this.oiltyp1 = data.vof_engin_oil;
-      this.oiltyp2 = data.vof_gear_oil;
-      this.oiltyp3 = data.vof_differential_oil;
-      this.oiltyp4 = data.vof_hydraulic_oil;
-      this.oiltyp5 = data.vof_transmission_oil;
-      this.oiltyp6 = data.vof_steering_oil;
-      this.oiltyp7 = data.vof_brake_oil;
-      this.oiltyp8 = data.vof_cluth_oil;
-      this.oiltyp9 = data.vof_crankcase_oil;
-      this.oiltyp10 = data.vof_shokabsob_oil;
-      this.o1c = data.vof_engin_cap;
-      this.o2c = data.vof_gear_cap;
-      this.o3c = data.vof_differential_cap;
-      this.o4c = data.vof_hydraulic_cap;
-      this.o5c = data.vof_transmission_cap;
-      this.o6c = data.vof_steering_cap;
-      this.o7c = data.vof_brake_cap;
-      this.o8c = data.vof_capacity;
-      this.o9c = data.vof_crankcase_cap;
-      this.o10c = data.vof_shokabsob_cap;
+      if (data) {
+        this.fuel = data.fueltype;
+        this.ftank = data.fuelMainCapacity;
+        this.frtank = data.fuelReserveCapacity;
+        this.oiltyp1 = data.vof_engin_oil;
+        this.oiltyp2 = data.vof_gear_oil;
+        this.oiltyp3 = data.vof_differential_oil;
+        this.oiltyp4 = data.vof_hydraulic_oil;
+        this.oiltyp5 = data.vof_transmission_oil;
+        this.oiltyp6 = data.vof_steering_oil;
+        this.oiltyp7 = data.vof_brake_oil;
+        this.oiltyp8 = data.vof_cluth_oil;
+        this.oiltyp9 = data.vof_crankcase_oil;
+        this.oiltyp10 = data.vof_shokabsob_oil;
+        this.o1c = data.vof_engin_cap;
+        this.o2c = data.vof_gear_cap;
+        this.o3c = data.vof_differential_cap;
+        this.o4c = data.vof_hydraulic_cap;
+        this.o5c = data.vof_transmission_cap;
+        this.o6c = data.vof_steering_cap;
+        this.o7c = data.vof_brake_cap;
+        this.o8c = data.vof_capacity;
+        this.o9c = data.vof_crankcase_cap;
+        this.o10c = data.vof_shokabsob_cap;
+      }
     });
   }
 
@@ -349,20 +353,21 @@ export class BasicComponent implements OnInit {
   getEngin() {
     this.http.post<any>(this.urlVehicle + 'getEngin', { id: this.basicID }).subscribe(res => {
       const data = res[0];
-      this.enginNo = data.engin_no;
-      this.enginType = data.engin_type;
-      this.horsepower = data.horsepower;
-      this.injectionPump = data.injection_pump;
-      this.atomiser = data.atomiser;
-      this.coil = data.coil;
-      this.lighting = data.lighting;
-      this.cylinders = data.cylinders;
-      this.bore = data.bore;
-      this.strock = data.strock;
-      this.carburettor = data.carburettor;
-      this.jetsmainSize = data.jetsmain_size;
-      this.compensating = data.compensating;
-      this.choke = data.choke;
+      if (data) {
+        this.enginType = data.engin_type;
+        this.horsepower = data.horsepower;
+        this.injectionPump = data.injection_pump;
+        this.atomiser = data.atomiser;
+        this.coil = data.coil;
+        this.lighting = data.lighting;
+        this.cylinders = data.cylinders;
+        this.bore = data.bore;
+        this.strock = data.strock;
+        this.carburettor = data.carburettor;
+        this.jetsmainSize = data.jetsmain_size;
+        this.compensating = data.compensating;
+        this.choke = data.choke;
+      }
     });
   }
 
@@ -386,12 +391,14 @@ export class BasicComponent implements OnInit {
   getBattery() {
     this.http.post<any>(this.urlVehicle + 'getBattry', { id: this.basicID }).subscribe(res => {
       const data = res[0];
-      this.btype = data.btype;
-      this.voltage = data.voltage;
-      this.amperage = data.amperage;
-      this.length = data.length;
-      this.width = data.width;
-      this.height = data.height;
+      if (data) {
+        this.btype = data.btype;
+        this.voltage = data.voltage;
+        this.amperage = data.amperage;
+        this.length = data.length;
+        this.width = data.width;
+        this.height = data.height;
+      }
     });
   }
 
@@ -412,10 +419,12 @@ export class BasicComponent implements OnInit {
   getTayer() {
     this.http.post<any>(this.urlVehicle + 'getTayer', { id: this.basicID }).subscribe(res => {
       const data = res[0];
-      this.tfsize = data.sizefront;
-      this.tfpressure = data.pressurefront;
-      this.tbsize = data.sizerear;
-      this.tbpressure = data.pressurerear;
+      if (data) {
+        this.tfsize = data.sizefront;
+        this.tfpressure = data.pressurefront;
+        this.tbsize = data.sizerear;
+        this.tbpressure = data.pressurerear;
+      }
     });
   }
 
