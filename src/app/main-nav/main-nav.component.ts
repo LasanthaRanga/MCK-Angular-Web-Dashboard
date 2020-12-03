@@ -36,6 +36,8 @@ export class MainNavComponent {
 
     //  this.privilages = JSON.parse(localStorage.getItem('privilage'));
 
+    console.log('----------------------- privilages');
+
     let iduser = 0;
     let arrr = JSON.parse(sessionStorage.getItem('loged'));
 
@@ -46,6 +48,8 @@ export class MainNavComponent {
     this.http.post(this._urlprivilage, { id: iduser }).subscribe(data => {
       this.privilages = null;
       this.privilages = JSON.parse(JSON.stringify(data));
+
+      console.log(this.privilages);
 
       sessionStorage.setItem('privilage', JSON.stringify(this.privilages));
 

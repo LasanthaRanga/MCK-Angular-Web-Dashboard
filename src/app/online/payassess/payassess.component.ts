@@ -125,41 +125,40 @@ export class PayassessComponent implements OnInit {
   isDisabled() {
     let dis;
     this.http.post(this.urlPay + 'disabled', { cat: 2 }).subscribe(res => {
-      const time = res[0].block_dateTime;
-      this.reson = res[0].reson;
 
-      const disable = new DatePipe('en').transform(time, 'yyyy-MM-dd HH:mm:ss');
-      const today = new DatePipe('en').transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+      if (res[0]) {
 
+        const time = res[0].block_dateTime;
+        this.reson = res[0].reson;
 
-      console.log('----------------------------');
-      console.log(disable);
-      console.log(today);
-      console.log('----------------------------');
+        const disable = new DatePipe('en').transform(time, 'yyyy-MM-dd HH:mm:ss');
+        const today = new DatePipe('en').transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
 
 
-      if (disable >= today) {
-        this.disable = false;
-      } else {
-        this.disable = true;
+        console.log('----------------------------');
+        console.log(disable);
+        console.log(today);
+        console.log('----------------------------');
+
+
+        if (disable >= today) {
+          this.disable = false;
+        } else {
+          this.disable = true;
+        }
       }
-
-
-
-
-
-
-
-
-
 
     });
   }
 
   calTotal() {
+    this.amount = Math.round(this.amount * 100) / 100;
 
     this.onValue = this.amount * this.onRate / 100;
+    this.onValue = Math.round(this.onValue * 100) / 100;
+
     this.fullPay = this.amount + this.onValue;
+    this.fullPay = Math.round(this.fullPay * 100) / 100;
 
   }
 
@@ -188,6 +187,9 @@ export class PayassessComponent implements OnInit {
       console.log(path);
       window.location.href = path;
     });
+
+
+
   }
 
   logOut() {
