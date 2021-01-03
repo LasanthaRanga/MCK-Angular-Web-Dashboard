@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/login/login.service';
@@ -52,4 +52,7 @@ export class HomeComponent implements OnInit {
   logOut() {
     this.login.logOut();
   }
+
+
+
 }

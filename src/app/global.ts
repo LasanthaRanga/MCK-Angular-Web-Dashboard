@@ -1,6 +1,6 @@
-// export const ip = 'http://localhost:3001/online/';
+export const ip = 'http://localhost:3001/online/';
 // export const ip = 'http://124.43.8.250/online/'; // chilaw
-export const ip = 'http://124.43.9.57/online/'; // MCK
+// export const ip = 'http://124.43.9.57/online/'; // MCK
 // export const ip = 'http://123.231.113.29/online/'; // Kuliyapitiya PS
 // export const ip = 'http://123.231.113.102/online/'; // Polpithigama
 // export const ip = 'http://124.43.8.99/online/'; // Polgahawela

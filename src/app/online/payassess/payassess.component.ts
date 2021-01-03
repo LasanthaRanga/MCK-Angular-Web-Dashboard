@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as statics from '../../global';
 import * as allert from '../../allert';
 import { LoginService } from '../../../app/service/login/login.service';
 import { DatePipe } from '@angular/common';
+declare let Checkout: any;
+
 
 export interface Obj {
   lya: number;
@@ -38,7 +40,7 @@ export class PayassessComponent implements OnInit {
   fullPay;
   onRate;
   onValue;
-
+  ses;
   disable = false;
   reson;
 
@@ -176,17 +178,48 @@ export class PayassessComponent implements OnInit {
       o2: '-'
     };
 
-    this.http.post(this.urlPay + 'pay', param).subscribe(data => {
-      console.log(data);
-      const onpayid = data['insertId'];
-      console.log(onpayid);
-      const path = 'https://kgmc.lk/php/HostedCheckoutReturnToMerchant_NVP.php?order_amount=' + this.fullPay +
-        '&order_currency=LKR&customer_receipt_email=' + this.email +
-        '&appid=' + this.assdata.idAssessment +
-        '&onpayid=' + onpayid;
-      console.log(path);
-      window.location.href = path;
+
+    // this.http.post(this.urlPay + 'pay', param).subscribe(data => {
+    //   console.log(data);
+    //   const onpayid = data['insertId'];
+    //   console.log(onpayid);
+    //   const path = 'https://kgmc.lk/php/HostedCheckoutReturnToMerchant_NVP.php?order_amount=' + this.fullPay +
+    //     '&order_currency=LKR&customer_receipt_email=' + this.email +
+    //     '&appid=' + this.assdata.idAssessment +
+    //     '&onpayid=' + onpayid;
+    //   console.log(path);
+    //   window.location.href = path;
+    // });
+
+
+    console.log("click On pay");
+
+    this.http.post(statics.ip + 'boc', {}).subscribe(data => {
+      this.ses = data;
+      console.log(this.ses);
+
+      Checkout.configure({
+        session: {
+          id: this.ses.session.id
+        },
+        interaction: {
+          merchant: {
+            name: 'Your merchant name',
+            address: {
+              line1: '200 Sample St',
+              line2: '1234 Example Town'
+            }
+          }
+        }
+      });
+      
+      Checkout.showLightbox();
+      // Checkout.showPaymentPage()
+
     });
+
+
+
 
 
 

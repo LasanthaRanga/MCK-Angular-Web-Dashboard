@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>CAT Web Potral</title>
@@ -15,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
- 
+
   <!-- Bootstrap Core CSS -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -28,16 +29,38 @@
   <!-- Custom CSS -->
   <link href="assets/css/stylish-portfolio.min.css" rel="stylesheet">
 
-  <script src="https://test-bankofceylon.mtf.gateway.mastercard.com/checkout/version/40/checkout.js"
-    data-error="errorCallback" data-cancel="cancelCallback" data-complete="">
-    </script>
 
+
+  <script src="https://test-bankofceylon.mtf.gateway.mastercard.com/checkout/version/57/checkout.js"
+    data-error="errorCallback" data-cancel="cancelCallback" data-complete="completeCallBack"></script>
+
+  <script type="text/javascript">
+
+
+    function errorCallback(error) {
+      console.log(JSON.stringify(error));
+    }
+
+
+    function cancelCallback() {
+      console.log('Payment cancelled');
+    }
+
+    function completeCallBack(respoce) {
+      console.log(JSON.stringify(respoce));
+    }
+
+
+
+
+  </script>
 
 
 </head>
 
 <body>
   <app-root></app-root>
+
 </body>
 
 
@@ -50,7 +73,6 @@
 
 <!-- Custom scripts for this template -->
 <script src="assets/js/stylish-portfolio.min.js"></script>
-
 
 
 </html>

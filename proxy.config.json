@@ -1,6 +1,6 @@
 {
   "/posts": {
-    "target": "http://192.168.1.3:3000/",
+    "target": "https://test-bankofceylon.mtf.gateway.mastercard.com",
     "secure": true,
     "pathRewrite": {
     "^/posts": ""
