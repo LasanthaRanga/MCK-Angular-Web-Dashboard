@@ -63,21 +63,28 @@ export class LoginService {
 
             console.log(sessionStorage.getItem('loged'));
             this.router.navigate(['/dash']);
-           // window.location.href = "/";
+            // window.location.href = "/";
           } else {
             this.router.navigate(['/login']);
             console.log('no data');
           }
-        } else if (data['type'] == 2) {
+        } else if (data['type'] === 2) {
+
+          console.log(JSON.stringify(data['data']));
+
           sessionStorage.setItem('utype', '2');
           sessionStorage.setItem('loged', JSON.stringify(data['data']));
           console.log("===================================================================");
           console.log(data['type']);
           console.log(arr);
           this.router.navigate(['/onhome']);
-        //  window.location.href = "/";
+          //  window.location.href = "/";
 
           console.log("===================================================================");
+
+        } else if (data['type'] === 3) {
+
+          console.log('----------');
 
         }
 
@@ -115,7 +122,7 @@ export class LoginService {
     localStorage.removeItem('subs');
     sessionStorage.removeItem('utype');
     this.router.navigate(['/home']);
-   // window.location.href = "";
+    // window.location.href = "";
 
   }
 

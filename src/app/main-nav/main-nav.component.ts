@@ -16,14 +16,15 @@ import { element } from 'protractor';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent {
-  private _urlprivilage = statics.ip + 'privilage';
+  private urlprivilage = statics.ip + 'privilage';
   privilage: Iprivilage;
 
   isLogin = false;
+  // tslint:disable-next-line:member-ordering
+ privilages = [];
 
 
-
-  constructor(private breakpointObserver: BreakpointObserver, private _login: LoginService, private http: HttpClient) {
+  constructor(private breakpointObserver: BreakpointObserver, private login: LoginService, private http: HttpClient) {
 
   }
 
@@ -32,6 +33,7 @@ export class MainNavComponent {
     shareReplay()
   );
 
+  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit() {
 
     //  this.privilages = JSON.parse(localStorage.getItem('privilage'));
@@ -39,13 +41,13 @@ export class MainNavComponent {
     console.log('----------------------- privilages');
 
     let iduser = 0;
-    let arrr = JSON.parse(sessionStorage.getItem('loged'));
+    const arrr = JSON.parse(sessionStorage.getItem('loged'));
 
     if (arrr != null && arrr.length > 0) {
       iduser = arrr[0].idUser;
     }
 
-    this.http.post(this._urlprivilage, { id: iduser }).subscribe(data => {
+    this.http.post(this.urlprivilage, { id: iduser }).subscribe(data => {
       this.privilages = null;
       this.privilages = JSON.parse(JSON.stringify(data));
 
@@ -57,7 +59,7 @@ export class MainNavComponent {
         this.isLogin = true;
 
         this.privilages.forEach(el => {
-          this.http.post(this._urlprivilage + '/sub', { id: iduser, main: el.id }).subscribe(da => {
+          this.http.post(this.urlprivilage + '/sub', { id: iduser, main: el.id }).subscribe(da => {
             el.sub = JSON.parse(JSON.stringify(da));
           });
         });
@@ -72,10 +74,10 @@ export class MainNavComponent {
 
 
 
-  privilages = [];
+
 
   logOut() {
-    this._login.logOut();
+    this.login.logOut();
   }
 
 

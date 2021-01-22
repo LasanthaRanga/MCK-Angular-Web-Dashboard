@@ -20,6 +20,7 @@ import { JobtypesService } from './service/jobtypes.service';
 import { LoginService } from './service/login/login.service';
 import { UsersubjectsComponent } from './job_assign/usersubjects/usersubjects.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ReciptComponent } from './online/recipt/recipt.component';
 
 
 
@@ -35,7 +36,8 @@ import { DialogComponent } from './dialog/dialog.component';
     MainNavComponent,
     routComponents,
     UsersubjectsComponent,
-    DialogComponent
+    DialogComponent,
+    ReciptComponent
   ],
   entryComponents: [DialogComponent],
   imports: [

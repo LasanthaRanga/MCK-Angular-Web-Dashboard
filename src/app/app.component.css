@@ -1,12 +1,13 @@
-mat-sidenav-container{
- height: 100%;
-}
-mat-sidenav, mat-sidenav-content{
-  padding : 16px;
+mat-sidenav-container {
+    height: 95%;
 }
 
-mat-sidenav{
-  background-color: lightblue;
-  width: 200px;
+mat-sidenav,
+mat-sidenav-content {
+    padding: 16px;
 }
 
+body {
+    background-image: url('../assets/images/tex.png');
+    background-repeat: repeat;
+}

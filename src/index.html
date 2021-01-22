@@ -32,7 +32,7 @@
 
 
   <script src="https://test-bankofceylon.mtf.gateway.mastercard.com/checkout/version/57/checkout.js"
-    data-error="errorCallback" data-cancel="cancelCallback" data-complete="completeCallBack"></script>
+    data-error="errorCallback" data-cancel="cancelCallback"></script>
 
   <script type="text/javascript">
 
@@ -46,9 +46,22 @@
       console.log('Payment cancelled');
     }
 
-    function completeCallBack(respoce) {
-      console.log(JSON.stringify(respoce));
+    function completeCallback(resultIndicator, sessionVersion) {
+      //handle payment completion
+      console.log(resultIndicator);
+      console.log(sessionVersion);
     }
+
+    Checkout.saveFormFields(data => {
+      console.log("saveFormFields");
+      console.log(data);
+    });
+
+    Checkout.restoreFormFields(data => {
+      console.log("restoreFormFields");
+      console.log(data);
+    });
+
 
 
 

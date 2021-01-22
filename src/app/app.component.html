@@ -1,11 +1,11 @@
 <div *ngIf="isLog()">
-  <div *ngIf="getUserType()">
-    <app-main-nav></app-main-nav>
-  </div>
-  <div *ngIf="!getUserType()">
-    <router-outlet></router-outlet>
-  </div>
+    <div *ngIf="getUserType()">
+        <app-main-nav></app-main-nav>
+    </div>
+    <div *ngIf="!getUserType()">
+        <router-outlet></router-outlet>
+    </div>
 </div>
 <div *ngIf="!isLog()">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </div>
